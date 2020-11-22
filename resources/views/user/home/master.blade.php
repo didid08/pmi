@@ -67,13 +67,13 @@
 					<!-- sidebar menu start -->
 					<div class="sidebar-menu">
 						<ul>
-							<li class="active">
+							<li class="{{ $activeMenu == 'dashboard' ? 'active' : '' }}">
 								<a href="{{ route('user.dashboard') }}">
 									<i class="fa fa-dashboard"></i>
 									<span class="menu-text">Dashboard</span>
 								</a>
 							</li>
-							<li>
+							<li class="{{ $activeMenu == 'pmi-struktural' ? 'active' : '' }}">
 								<a href="/">
 									<i class="fa fa-sitemap"></i>
 									<span class="menu-text">PMI-Struktural</span>
@@ -119,6 +119,12 @@
 										</li>
 									</ul>
 								</div>
+							</li>
+							<li class="{{ $activeMenu == 'profile' ? 'active' : '' }}">
+								<a href="{{ route('user.profile') }}">
+									<i class="fa fa-user"></i>
+									<span class="menu-text">Profil Saya</span>
+								</a>
 							</li>
 						</ul>
 					</div>
@@ -255,8 +261,8 @@
 											<h5>User</h5>
 											<p>User</p>
 										</div>
-										<a href="user-profile.html"><i class="icon-user1"></i> Profil Saya</a>
-										<a href="user-profile.html"><i class="icon-lock1"></i> Ubah Password</a>
+										<a href="{{ route('user.profile') }}"><i class="icon-user1"></i> Profil</a>
+										<a href=""><i class="icon-lock1"></i> Ubah Password</a>
 										<a href="{{ route('user.logout') }}"><i class="icon-log-out1"></i> Keluar</a>
 									</div>
 								</div>

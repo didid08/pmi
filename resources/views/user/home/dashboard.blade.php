@@ -1,4 +1,4 @@
-@extends('user.master')
+@extends('user.home.master')
 
 @section('header')
 	<ol class="breadcrumb">

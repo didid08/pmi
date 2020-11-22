@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\User\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +27,20 @@ Route::get('/user/logout', [LoginController::class, 'logout'])->name('user.logou
 Route::middleware('auth')->group(function ()
 {
 	Route::get('/user', function () {
-    	return redirect()->route('user.dashboard');
+    	return redirect()->route('user.home.dashboard');
+	});
+	Route::get('/user/home', function () {
+    	return redirect()->route('user.home.dashboard');
 	});
 
 	//Dashboard
-	Route::get('/user/dashboard', function () {
-    	return view('user.dashboard');
-	})->name('user.dashboard');
+	Route::get('/user/home/dashboard', function () {
+    	return view('user.home.dashboard');
+	})->name('user.home.dashboard');
+
+	//Profile
+	Route::get('/user/home/profile', function () {
+    	return view('user.home.profile');
+	})->name('user.home.profile');
 
 });
