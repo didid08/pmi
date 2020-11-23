@@ -1,29 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\User\LoginController;
+use App\Http\Controllers\User\Auth\LoginController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\User\Home as UserHome;
 
 Route::get('/', function() {
 	return '<a href="/user/login">Login</a>';
 });
 
 //Auth
-Route::get('/user/login', [LoginController::class, 'showLoginForm'])->name('user.login');
-Route::post('/user/login', [LoginController::class, 'login'])->name('user.login.process');
-Route::get('/user/logout', [LoginController::class, 'logout'])->name('user.logout');
+Route::get('/user/login', [LoginController::class, 'showLoginForm'])->name('user.auth.login');
+Route::post('/user/login', [LoginController::class, 'login'])->name('user.auth.login.process');
+Route::get('/user/logout', [LoginController::class, 'logout'])->name('user.auth.logout');
 
-//Users
+//Home
 Route::middleware('auth')->group(function ()
 {
 	Route::get('/user', function () {
@@ -34,13 +25,9 @@ Route::middleware('auth')->group(function ()
 	});
 
 	//Dashboard
-	Route::get('/user/home/dashboard', function () {
-    	return view('user.home.dashboard');
-	})->name('user.home.dashboard');
+	Route::get('/user/home/dashboard', [UserHome\DashboardController::class, 'viewPage'])->name('user.home.dashboard');
 
 	//Profile
-	Route::get('/user/home/profile', function () {
-    	return view('user.home.profile');
-	})->name('user.home.profile');
+	Route::get('/user/home/profile', [UserHome\ProfileController::class, 'viewPage'])->name('user.home.profile');
 
 });

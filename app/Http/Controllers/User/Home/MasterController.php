@@ -9,7 +9,10 @@ class MasterController extends Controller
 {
     public $activeMenu = '';
 
-    public function __construct() {
-        
+    public function view($view, $data = [])
+    {
+        return view('user.home.'.$view, array_merge([
+            'activeMenu' => $this->activeMenu
+        ], $data));
     }
 }

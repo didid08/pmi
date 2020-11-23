@@ -32,12 +32,12 @@
         <!-- Container start -->
         <div class="container">
             
-            <form method="POST" action="{{ route('user.login.process') }}">
+            <form method="POST" action="{{ route('user.auth.login.process') }}">
                 <div class="row justify-content-md-center">
                     <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
                         <div class="login-screen">
                             <div class="login-box">
-                                <a href="{{ route('user.dashboard') }}" class="login-logo">
+                                <a href="{{ route('user.home.dashboard') }}" class="login-logo">
                                     <img src="{{ asset('img/pmi.png') }}" alt="PMI Lhokseumawe" />
                                 </a>
                                 <h4 style="margin-bottom: 0.7em;">User Area - Login</h4>

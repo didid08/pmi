@@ -54,7 +54,7 @@
 				
 				<!-- Sidebar brand start  -->
 				<div class="sidebar-brand">
-					<a href="{{ route('user.dashboard') }}" class="logo">
+					<a href="{{ route('user.home.dashboard') }}" class="logo">
 						<img src="{{ asset('img/pmi.png') }}" alt="PMI Lhokseumawe" />
 						<span class="text-white ml-2" style="font-size: 1.2em; font-weight: bold;">PMI Lhokseumawe</span>
 					</a>
@@ -68,7 +68,7 @@
 					<div class="sidebar-menu">
 						<ul>
 							<li class="{{ $activeMenu == 'dashboard' ? 'active' : '' }}">
-								<a href="{{ route('user.dashboard') }}">
+								<a href="{{ route('user.home.dashboard') }}">
 									<i class="fa fa-dashboard"></i>
 									<span class="menu-text">Dashboard</span>
 								</a>
@@ -121,7 +121,7 @@
 								</div>
 							</li>
 							<li class="{{ $activeMenu == 'profile' ? 'active' : '' }}">
-								<a href="{{ route('user.profile') }}">
+								<a href="{{ route('user.home.profile') }}">
 									<i class="fa fa-user"></i>
 									<span class="menu-text">Profil Saya</span>
 								</a>
@@ -261,9 +261,9 @@
 											<h5>User</h5>
 											<p>User</p>
 										</div>
-										<a href="{{ route('user.profile') }}"><i class="icon-user1"></i> Profil</a>
+										<a href="{{ route('user.home.profile') }}"><i class="icon-user1"></i> Profil</a>
 										<a href=""><i class="icon-lock1"></i> Ubah Password</a>
-										<a href="{{ route('user.logout') }}"><i class="icon-log-out1"></i> Keluar</a>
+										<a href="{{ route('user.auth.logout') }}"><i class="icon-log-out1"></i> Keluar</a>
 									</div>
 								</div>
 							</li>
