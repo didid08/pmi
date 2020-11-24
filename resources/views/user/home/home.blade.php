@@ -33,12 +33,14 @@
 		<!-- DateRange css -->
 		<link rel="stylesheet" href="{{ asset('vendor/daterange/daterange.css') }}" />
 
+		<!-- Custom CSS -->
+		@yield('custom-css')
 	</head>
 
 	<body>
 
 		<!-- Loading starts -->
-		<div id="loading-wrapper">
+		<div id="loading-wrapper" style="display: none">
 			<div class="spinner-border" role="status">
 				<span class="sr-only">Loading...</span>
 			</div>
@@ -79,6 +81,12 @@
 									<span class="menu-text">PMI-Struktural</span>
 								</a>
 							</li>
+							<li>
+								<a href="/">
+									<i class="fa fa-building-o"></i>
+									<span class="menu-text">TSR</span>
+								</a>
+							</li>
 							<li class="sidebar-dropdown">
 								<a href="#">
 									<i class="fa fa-building-o"></i>
@@ -94,12 +102,6 @@
 										</li>
 									</ul>
 								</div>
-							</li>
-							<li>
-								<a href="/">
-									<i class="fa fa-building-o"></i>
-									<span class="menu-text">TSR</span>
-								</a>
 							</li>
 							<li class="sidebar-dropdown">
 								<a href="#">
@@ -220,13 +222,12 @@
 									<div class="header-profile-actions">
 										<div class="header-user-profile">
 											<div class="header-user">
-												<img src="{{ asset('img/user.png') }}" alt="Admin Template">
+												<img src="{{ asset('img/user.png') }}" alt="">
 											</div>
 											<h5>User</h5>
-											<p>User</p>
+											<p>{{ Auth::user()->email }}</p>
 										</div>
 										<a href="{{ route('user.home.profile') }}"><i class="icon-user1"></i> Profil</a>
-										<a href=""><i class="icon-lock1"></i> Ubah Password</a>
 										<a href="{{ route('user.auth.logout') }}"><i class="icon-log-out1"></i> Keluar</a>
 									</div>
 								</div>
@@ -291,6 +292,14 @@
 
 		<!-- Main JS -->
 		<script src="{{ asset('js/main.js') }}"></script>
+
+		<!-- Tooltip -->
+		<script>
+			$('[data-toggle="tooltip"]').tooltip();
+		</script>
+
+		<!-- Custom Script -->
+		@yield('custom-script')
 
 	</body>
 </html>
