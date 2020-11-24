@@ -11,7 +11,7 @@
 		<link rel="shortcut icon" href="{{ asset('img/fav.png') }}" />
 
 		<!-- Title -->
-		<title>PMI Lhokseumawe - User Area</title>
+		<title>PMI Lhokseumawe - User Area | Home | {{ $subTitle }}</title>
 
 
 		<!-- *************
@@ -122,7 +122,7 @@
 							</li>
 							<li class="{{ $activeMenu == 'profile' ? 'active' : '' }}">
 								<a href="{{ route('user.home.profile') }}">
-									<i class="fa fa-user"></i>
+									<i class="fa fa-user-o"></i>
 									<span class="menu-text">Profil Saya</span>
 								</a>
 							</li>
@@ -152,49 +152,13 @@
 					<div class="header-items">
 						<!-- Custom search start -->
 						<div class="custom-search">
-							<input type="text" class="search-query" placeholder="Search here ...">
+							<input type="text" class="search-query" placeholder="Cari">
 							<i class="icon-search1"></i>
 						</div>
 						<!-- Custom search end -->
 
 						<!-- Header actions start -->
 						<ul class="header-actions">
-							<li class="dropdown">
-								<a href="#" id="notifications" data-toggle="dropdown" aria-haspopup="true">
-									<i class="icon-box"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-right lrg" aria-labelledby="notifications">
-									<div class="dropdown-menu-header">
-										Tasks (05)
-									</div>	
-									<ul class="header-tasks">
-										<li>
-											<p>#20 - Dashboard UI<span>90%</span></p>
-											<div class="progress">
-												<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
-													<span class="sr-only">90% Complete (success)</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>#35 - Alignment Fix<span>60%</span></p>
-											<div class="progress">
-												<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-													<span class="sr-only">60% Complete (success)</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>#50 - Broken Button<span>40%</span></p>
-											<div class="progress">
-												<div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-													<span class="sr-only">40% Complete (success)</span>
-												</div>
-											</div>
-										</li>
-									</ul>
-								</div>
-							</li>
 							<li class="dropdown">
 								<a href="#" id="notifications" data-toggle="dropdown" aria-haspopup="true">
 									<i class="icon-bell"></i>
@@ -256,7 +220,7 @@
 									<div class="header-profile-actions">
 										<div class="header-user-profile">
 											<div class="header-user">
-												<img src="img/user.png" alt="Admin Template">
+												<img src="{{ asset('img/user.png') }}" alt="Admin Template">
 											</div>
 											<h5>User</h5>
 											<p>User</p>
