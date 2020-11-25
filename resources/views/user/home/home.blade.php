@@ -33,6 +33,9 @@
 		<!-- DateRange css -->
 		<link rel="stylesheet" href="{{ asset('vendor/daterange/daterange.css') }}" />
 
+		<!-- iziToast -->
+		<link rel="stylesheet" href="{{ asset('css/iziToast.min.css') }}">
+
 		<!-- Custom CSS -->
 		@yield('custom-css')
 	</head>
@@ -224,8 +227,8 @@
 											<div class="header-user">
 												<img src="{{ asset('img/user.png') }}" alt="">
 											</div>
-											<h5>User</h5>
-											<p>{{ Auth::user()->email }}</p>
+											<h5>{{ Auth::user()->userProfile->nama ?? explode('@', Auth::user()->email)[0] }}</h5>
+											<p>{{ substr(Auth::user()->email, 0, 15) }}{{ strlen(Auth::user()->email) > 15 ? '...' : '' }}</p>
 										</div>
 										<a href="{{ route('user.home.profile') }}"><i class="icon-user1"></i> Profil</a>
 										<a href="{{ route('user.auth.logout') }}"><i class="icon-log-out1"></i> Keluar</a>
@@ -293,9 +296,27 @@
 		<!-- Main JS -->
 		<script src="{{ asset('js/main.js') }}"></script>
 
-		<!-- Tooltip -->
+		<!-- iziToast -->
+		<script src="{{ asset('js/iziToast.min.js') }}"></script>
+
+		<!-- Global Custom Script -->
 		<script>
 			$('[data-toggle="tooltip"]').tooltip();
+
+			@if (session('success'))
+				iziToast.success({
+					message: '{{ session('success') }}'
+				});
+			@endif
+
+			@if ($errors->all())
+				@foreach ($errors->all() as $message)
+					iziToast.error({
+						title: 'Error',
+						message: '{{ $message }}'
+					});
+				@endforeach
+			@endif
 		</script>
 
 		<!-- Custom Script -->

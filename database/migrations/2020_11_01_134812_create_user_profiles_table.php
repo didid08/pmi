@@ -16,17 +16,17 @@ class CreateUserProfilesTable extends Migration
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('kode_anggota');
-            $table->string('kode_anggota_lama');
-            $table->string('nama');
-            $table->string('kelamin');
-            $table->string('no_hp');
-            $table->string('tempat_lahir');
-            $table->string('tanggal_lahir');
-            $table->string('jenis_identitas');
-            $table->string('nik');
-            $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Konghucu']);
-            $table->enum('golongan_darah', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']);
+            $table->string('kode_anggota')->nullable();
+            $table->string('kode_anggota_lama')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('kelamin')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->string('jenis_identitas')->nullable();
+            $table->string('nik')->nullable();
+            $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha', 'Konghucu'])->nullable();
+            $table->enum('golongan_darah', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])->nullable();
             $table->timestamps();
         });
     }

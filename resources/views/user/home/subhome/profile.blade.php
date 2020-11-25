@@ -14,7 +14,7 @@
             margin-bottom: 0.2em;
         }
 
-        #pengaturan-akun {
+        #ubah-password {
             display: none;
         }
     </style>
@@ -23,34 +23,7 @@
 @section('custom-script')
     <script>
         // Editor Function
-        ["data-anggota", "password"].forEach(element => {
-            $("#edit-"+element).click(function () {
-                $("#"+element+" input").removeAttr("readonly");
-                $("#"+element+" input").each(function () {
-                    $(this).attr("placeholder", "Masukkan "+this.id.replace("-", " ").replace("-", " ").toLowerCase().replace(/\b[a-z]/g, function(letter) {
-                        return letter.toUpperCase();
-                    }));
-                    $(this).attr("oldvalue", $(this).val());
-                });
-                $("#edit-"+element).css("display", "none");
-                $("#batal-edit-"+element).fadeIn();
-                $("#simpan-"+element).fadeIn();
-            })
-
-            $("#batal-edit-"+element).click(function () {
-                $("#"+element+" input").attr("readonly");
-                $("#"+element+" input").each(function () {
-                    $(this).attr("placeholder", "-");
-                    $(this).attr("readonly", "readonly");
-                    $(this).val($(this).attr("oldvalue"));
-                    $(this).removeAttr("oldvalue");
-                });
-                $("#edit-"+element).fadeIn();
-                $("#batal-edit-"+element).css("display", "none");
-                $("#simpan-"+element).css("display", "none");
-            });
-        });
-
+        var activePanel = 'data-diri';
         function showHideElement (buttonId, toShow, toHide) {
             $("#profile-menu a").removeClass("btn-primary");
             $("#profile-menu a").addClass("btn-white");
@@ -63,6 +36,54 @@
                 $("#"+element).css("display", "none");
             });
         }
+
+        function editDataAnggota (option) {
+            if (option == 'show') {
+                $("#data-anggota input").removeAttr("readonly");
+                $("#data-anggota input").each(function () {
+                    $(this).attr("placeholder", "Masukkan "+this.id.replace("-", " ").replace("-", " ").toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                        return letter.toUpperCase();
+                    }));
+                    $(this).attr("oldvalue", $(this).val());
+                });
+                $("#edit-data-anggota").css("display", "none");
+                $("#batal-edit-data-anggota").fadeIn();
+                $("#simpan-data-anggota").fadeIn();
+            } else if (option == 'cancel') {
+                $("#data-anggota input").attr("readonly");
+                $("#data-anggota input").each(function () {
+                    $(this).attr("placeholder", "-");
+                    $(this).attr("readonly", "readonly");
+                    $(this).val($(this).attr("oldvalue"));
+                    $(this).removeAttr("oldvalue");
+                });
+                $("#edit-data-anggota").fadeIn();
+                $("#batal-edit-data-anggota").css("display", "none");
+                $("#simpan-data-anggota").css("display", "none");
+            }
+        }
+        @if ($errors->all())
+            if (activePanel == 'data-diri') {
+                editDataAnggota('show');
+                var oldValue = {
+                    'kode-anggota': '{{ old('kode-anggota') }}',
+                    'kode-anggota-lama': '{{ old('kode-anggota-lama') }}',
+                    'nama': '{{ old('nama') }}',
+                    'kelamin': '{{ old('kelamin') }}',
+                    'no_hp': '{{ old('no_hp') }}',
+                    'email': '{{ old('email') }}',
+                    'tempat-lahir': '{{ old('tempat-lahir') }}',
+                    'tanggal-lahir': '{{ old('tanggal-lahir') }}',
+                    'jenis-identitas': '{{ old('jenis-identitas') }}',
+                    'nik': '{{ old('nik') }}',
+                    'agama': '{{ old('agama') }}',
+                    'golongan-darah': '{{ old('golongan-darah') }}'
+                };
+                $("#data-anggota input").each(function () {
+                    $(this).val(oldValue[$(this).attr("id")]);
+                });
+            }
+        @endif
 
         function resetUbahPasswordInput() {
             $("#ubah-password input").val("");
@@ -80,7 +101,7 @@
                             <div class="user-avatar">
                                 <img src="{{ asset('img/user.png') }}" alt="Le Rouge Admin" />
                             </div>
-                            <h5 class="user-name">User</h5>
+                            <h5 class="user-name">{{ Auth::user()->userProfile->nama ?? explode('@', Auth::user()->email)[0] }}</h5>
                             <h6 class="user-email">{{ Auth::user()->email }}</h6>
                         </div>
                         <div id="profile-menu">
@@ -100,74 +121,77 @@
             </div>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12" id="data-anggota">
-            <div class="card h-100">
-                <div class="card-header">
-                    <div class="card-title">
-                        Data Anggota
-                        <div id="data-anggota-editor" style="display: inline; position: absolute; right: 1em">
-                            <button type="button" id="edit-data-anggota" class="btn btn-primary"><i class="fa fa-pencil-alt mr-2"></i>Edit</button>
-                            <button id="batal-edit-data-anggota" type="button" class="btn btn-white" style="display: none">Batal</button>
-                            <button id="simpan-data-anggota" type="submit" class="btn btn-primary" style="display: none">Simpan</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row gutters">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="kode-anggota">Kode Anggota</label>
-                                <input type="text" class="form-control" id="kode-anggota" placeholder="-" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="kode-anggota-lama">Kode Anggota Lama</label>
-                                <input type="text" class="form-control" id="kode-anggota-lama" placeholder="-" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="nama">Nama</label>
-                                <input type="text" class="form-control" id="nama" placeholder="-" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="kelamin">Kelamin</label>
-                                <input type="text" class="form-control" id="kelamin" placeholder="-" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="no-hp">No. HP</label>
-                                <input type="text" class="form-control" id="no-hp" placeholder="-" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" value="{{ Auth::user()->email }}" placeholder="-" readonly>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label for="tempat-lahir">Tempat Lahir</label>
-                                <input type="text" class="form-control" id="tempat-lahir" placeholder="-" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="tanggal-lahir">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="tanggal-lahir" placeholder="-" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="jenis-identitas">Jenis Identitas</label>
-                                <input type="text" class="form-control" id="jenis-identitas" placeholder="-" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="nomor-induk-kependudukan">Nomor Induk Kependudukan</label>
-                                <input type="text" class="form-control" id="nomor-induk-kependudukan" placeholder="-" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="agama">Agama</label>
-                                <input type="text" class="form-control" id="agama" placeholder="-" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="golongan-darah">Golongan Darah</label>
-                                <input type="text" class="form-control" id="golongan-darah" placeholder="-" readonly>
+            <form action="{{ route('user.home.profile.update', ['category' => 'data-anggota']) }}" method="POST">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Data Anggota
+                            <div id="data-anggota-editor" style="display: inline; position: absolute; right: 1em">
+                                <button type="button" id="edit-data-anggota" class="btn btn-primary" onclick="editDataAnggota('show')"><i class="fa fa-pencil-alt mr-2"></i>Edit</button>
+                                <button id="batal-edit-data-anggota" type="button" class="btn btn-white" style="display: none" onclick="editDataAnggota('cancel')">Batal</button>
+                                <button id="simpan-data-anggota" type="submit" class="btn btn-primary" style="display: none">Simpan</button>
                             </div>
                         </div>
                     </div>
+                    <div class="card-body">
+                        <div class="row gutters">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="kode-anggota">Kode Anggota</label>
+                                    <input type="text" class="form-control" id="kode-anggota" name="kode-anggota" value="{{ Auth::user()->userProfile->kode_anggota ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kode-anggota-lama">Kode Anggota Lama</label>
+                                    <input type="text" class="form-control" id="kode-anggota-lama" name="kode-anggota-lama" value="{{ Auth::user()->userProfile->kode_anggota_lama ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nama">Nama</label>
+                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ Auth::user()->userProfile->nama ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kelamin">Kelamin</label>
+                                    <input type="text" class="form-control" id="kelamin" name="kelamin" value="{{ Auth::user()->userProfile->kelamin ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no-hp">No. HP</label>
+                                    <input type="text" class="form-control" id="no-hp" name="no-hp" value="{{ Auth::user()->userProfile->no_hp ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="{{ Auth::user()->email ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="tempat-lahir">Tempat Lahir</label>
+                                    <input type="text" class="form-control" id="tempat-lahir" name="tempat-lahir" value="{{ Auth::user()->userProfile->tempat_lahir ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggal-lahir">Tanggal Lahir</label>
+                                    <input type="date" class="form-control" id="tanggal-lahir" name="tanggal-lahir" value="{{ Auth::user()->userProfile->tanggal_lahir ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jenis-identitas">Jenis Identitas</label>
+                                    <input type="text" class="form-control" id="jenis-identitas" name="jenis-identitas" value="{{ Auth::user()->userProfile->jenis_identitas ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nomor-induk-kependudukan">Nomor Induk Kependudukan</label>
+                                    <input type="text" class="form-control" id="nomor-induk-kependudukan" name="nomor-induk-kependudukan" value="{{ Auth::user()->userProfile->nomor_induk_kependudukan ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="agama">Agama</label>
+                                    <input type="text" class="form-control" id="agama" name="agama" value="{{ Auth::user()->userProfile->agama ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="golongan-darah">Golongan Darah</label>
+                                    <input type="text" class="form-control" id="golongan-darah" name="golongan-darah" value="{{ Auth::user()->userProfile->golongan_darah ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12" id="ubah-password">
             <div class="card h-100">

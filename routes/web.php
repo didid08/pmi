@@ -28,4 +28,5 @@ Route::middleware('auth')->group(function ()
 
 		//Profile
 		Route::get('/user/home/profile', [User\Home\SubHome\ProfileController::class, 'viewPage'])->name('user.home.profile');
+		Route::post('/user/home/profile/update/{category}', [User\Home\SubHome\ProfileController::class, 'update'])->name('user.home.profile.update');
 });
