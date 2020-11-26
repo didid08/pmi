@@ -1,5 +1,5 @@
 @extends('user.home.home')
-
+@if ($errors->all()) {{ dd($errors->all()) }} @endif
 @section('header')
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item active">Profil Saya</li>
@@ -56,13 +56,14 @@
                     $(this).attr("readonly", "readonly");
                     $(this).val($(this).attr("oldvalue"));
                     $(this).removeAttr("oldvalue");
+                    $(this).removeClass('is-invalid');
                 });
                 $("#edit-data-anggota").fadeIn();
                 $("#batal-edit-data-anggota").css("display", "none");
                 $("#simpan-data-anggota").css("display", "none");
             }
         }
-        @if ($errors->all())
+        @if ($errors->data_anggota->all())
             if (activePanel == 'data-diri') {
                 editDataAnggota('show');
                 var oldValue = {
@@ -70,12 +71,12 @@
                     'kode-anggota-lama': '{{ old('kode-anggota-lama') }}',
                     'nama': '{{ old('nama') }}',
                     'kelamin': '{{ old('kelamin') }}',
-                    'no_hp': '{{ old('no_hp') }}',
+                    'no-hp': '{{ old('no-hp') }}',
                     'email': '{{ old('email') }}',
                     'tempat-lahir': '{{ old('tempat-lahir') }}',
                     'tanggal-lahir': '{{ old('tanggal-lahir') }}',
                     'jenis-identitas': '{{ old('jenis-identitas') }}',
-                    'nik': '{{ old('nik') }}',
+                    'nomor-induk-kependudukan': '{{ old('nomor-induk-kependudukan') }}',
                     'agama': '{{ old('agama') }}',
                     'golongan-darah': '{{ old('golongan-darah') }}'
                 };
@@ -121,8 +122,8 @@
             </div>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12" id="data-anggota">
-            <form action="{{ route('user.home.profile.update', ['category' => 'data-anggota']) }}" method="POST">
-                <div class="card h-100">
+            <div class="card h-100">
+                <form action="{{ route('user.home.profile.data-anggota.update') }}" method="POST">
                     <div class="card-header">
                         <div class="card-title">
                             Data Anggota
@@ -136,62 +137,122 @@
                     <div class="card-body">
                         <div class="row gutters">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                @csrf
                                 <div class="form-group">
                                     <label for="kode-anggota">Kode Anggota</label>
-                                    <input type="text" class="form-control" id="kode-anggota" name="kode-anggota" value="{{ Auth::user()->userProfile->kode_anggota ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    @csrf
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('kode-anggota')) is-invalid @endif" id="kode-anggota" name="kode-anggota" value="{{ Auth::user()->userProfile->kode_anggota ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('kode-anggota'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('kode-anggota') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="kode-anggota-lama">Kode Anggota Lama</label>
-                                    <input type="text" class="form-control" id="kode-anggota-lama" name="kode-anggota-lama" value="{{ Auth::user()->userProfile->kode_anggota_lama ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('kode-anggota-lama')) is-invalid @endif" id="kode-anggota-lama" name="kode-anggota-lama" value="{{ Auth::user()->userProfile->kode_anggota_lama ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('kode-anggota-lama'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('kode-anggota-lama') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Nama</label>
-                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ Auth::user()->userProfile->nama ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('nama')) is-invalid @endif" id="nama" name="nama" value="{{ Auth::user()->userProfile->nama ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('nama'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('nama') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="kelamin">Kelamin</label>
-                                    <input type="text" class="form-control" id="kelamin" name="kelamin" value="{{ Auth::user()->userProfile->kelamin ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('kelamin')) is-invalid @endif" id="kelamin" name="kelamin" value="{{ Auth::user()->userProfile->kelamin ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('kelamin'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('kelamin') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="no-hp">No. HP</label>
-                                    <input type="text" class="form-control" id="no-hp" name="no-hp" value="{{ Auth::user()->userProfile->no_hp ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('no-hp')) is-invalid @endif" id="no-hp" name="no-hp" value="{{ Auth::user()->userProfile->no_hp ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('no-hp'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('no-hp') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" value="{{ Auth::user()->email ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="email" class="form-control @if ($errors->data_anggota->first('email')) is-invalid @endif" id="email" name="email" value="{{ Auth::user()->email ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('email'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('email') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="tempat-lahir">Tempat Lahir</label>
-                                    <input type="text" class="form-control" id="tempat-lahir" name="tempat-lahir" value="{{ Auth::user()->userProfile->tempat_lahir ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('tempat-lahir')) is-invalid @endif" id="tempat-lahir" name="tempat-lahir" value="{{ Auth::user()->userProfile->tempat_lahir ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('tempat-lahir'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('tempat-lahir') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="tanggal-lahir">Tanggal Lahir</label>
-                                    <input type="date" class="form-control" id="tanggal-lahir" name="tanggal-lahir" value="{{ Auth::user()->userProfile->tanggal_lahir ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="date" class="form-control @if ($errors->data_anggota->first('tanggal-lahir')) is-invalid @endif" id="tanggal-lahir" name="tanggal-lahir" value="{{ Auth::user()->userProfile->tanggal_lahir ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('tanggal-lahir'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('tanggal-lahir') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="jenis-identitas">Jenis Identitas</label>
-                                    <input type="text" class="form-control" id="jenis-identitas" name="jenis-identitas" value="{{ Auth::user()->userProfile->jenis_identitas ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('jenis-identitas')) is-invalid @endif" id="jenis-identitas" name="jenis-identitas" value="{{ Auth::user()->userProfile->jenis_identitas ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('jenis-identitas'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('jenis-identitas') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="nomor-induk-kependudukan">Nomor Induk Kependudukan</label>
-                                    <input type="text" class="form-control" id="nomor-induk-kependudukan" name="nomor-induk-kependudukan" value="{{ Auth::user()->userProfile->nomor_induk_kependudukan ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('nomor-induk-kependudukan')) is-invalid @endif" id="nomor-induk-kependudukan" name="nomor-induk-kependudukan" value="{{ Auth::user()->userProfile->nik ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('nomor-induk-kependudukan'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('nomor-induk-kependudukan') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="agama">Agama</label>
-                                    <input type="text" class="form-control" id="agama" name="agama" value="{{ Auth::user()->userProfile->agama ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('agama')) is-invalid @endif" id="agama" name="agama" value="{{ Auth::user()->userProfile->agama ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('agama'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('agama') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="golongan-darah">Golongan Darah</label>
-                                    <input type="text" class="form-control" id="golongan-darah" name="golongan-darah" value="{{ Auth::user()->userProfile->golongan_darah ?? '' }}" oldvalue="" placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('golongan-darah')) is-invalid @endif" id="golongan-darah" name="golongan-darah" value="{{ Auth::user()->userProfile->golongan_darah ?? '' }}" required placeholder="-" readonly>
+                                    @if ($errors->data_anggota->first('golongan-darah'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->data_anggota->first('golongan-darah') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12" id="ubah-password">
             <div class="card h-100">

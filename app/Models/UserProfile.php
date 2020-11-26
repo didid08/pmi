@@ -9,19 +9,20 @@ class UserProfile extends Model
 {
     use HasFactory;
 
-    /*protected $attributes = [
-        'kode_anggota' => '-',
-        'kode_anggota_lama' => '-',
-        'nama' => '-',
-        'kelamin' => '-',
-        'no_hp' => '-',
-        'tempat_lahir' => '-',
-        'tanggal_lahir' => '-',
-        'jenis_identitas' => '-',
-        'nik' => '-',
-        'agama' => '-',
-        'golongan_darah' => '-',
-    ];*/
+    protected $fillable = [
+        'user_id',
+        'kode_anggota',
+        'kode_anggota_lama',
+        'nama',
+        'kelamin',
+        'no_hp',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'jenis_identitas',
+        'nik',
+        'agama',
+        'golongan_darah',
+    ];
 
     public function user()
     {
