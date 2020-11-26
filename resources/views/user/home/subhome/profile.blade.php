@@ -40,20 +40,29 @@
         function editDataAnggota (option) {
             if (option == 'show') {
                 $("#data-anggota input").removeAttr("readonly");
+                $("#data-anggota select").removeAttr("disabled");
                 $("#data-anggota input").each(function () {
                     $(this).attr("placeholder", "Masukkan "+this.id.replace("-", " ").replace("-", " ").toLowerCase().replace(/\b[a-z]/g, function(letter) {
                         return letter.toUpperCase();
                     }));
                     $(this).attr("oldvalue", $(this).val());
                 });
+                $("#data-anggota select").each(function () {
+                    $(this).attr("oldvalue", $(this).val());
+                });
                 $("#edit-data-anggota").css("display", "none");
                 $("#batal-edit-data-anggota").fadeIn();
                 $("#simpan-data-anggota").fadeIn();
             } else if (option == 'cancel') {
-                $("#data-anggota input").attr("readonly");
                 $("#data-anggota input").each(function () {
                     $(this).attr("placeholder", "-");
                     $(this).attr("readonly", "readonly");
+                    $(this).val($(this).attr("oldvalue"));
+                    $(this).removeAttr("oldvalue");
+                    $(this).removeClass('is-invalid');
+                });
+                $("#data-anggota select").each(function () {
+                    $(this).attr("disabled", "disabled");
                     $(this).val($(this).attr("oldvalue"));
                     $(this).removeAttr("oldvalue");
                     $(this).removeClass('is-invalid');
@@ -81,6 +90,9 @@
                     'golongan-darah': '{{ old('golongan-darah') }}'
                 };
                 $("#data-anggota input").each(function () {
+                    $(this).val(oldValue[$(this).attr("id")]);
+                });
+                $("#data-anggota select").each(function () {
                     $(this).val(oldValue[$(this).attr("id")]);
                 });
             }
@@ -167,7 +179,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="kelamin">Kelamin</label>
-                                    <input type="text" class="form-control @if ($errors->data_anggota->first('kelamin')) is-invalid @endif" id="kelamin" name="kelamin" value="{{ Auth::user()->userProfile->kelamin ?? '' }}" required placeholder="-" readonly>
+                                    <select name="kelamin" id="kelamin" class="form-control @if ($errors->data_anggota->first('kelamin')) is-invalid @endif" disabled>
+                                        <option value="" disabled {{ Auth::user()->userProfile->kelamin ? '' : 'selected' }}>Pilih Jenis Kelamin</option>
+                                        <option value="Laki-laki" {{ Auth::user()->userProfile->kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                        <option value="Perempuan" {{ Auth::user()->userProfile->kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                    </select>
                                     @if ($errors->data_anggota->first('kelamin'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('kelamin') }}</strong>
@@ -232,7 +248,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="agama">Agama</label>
-                                    <input type="text" class="form-control @if ($errors->data_anggota->first('agama')) is-invalid @endif" id="agama" name="agama" value="{{ Auth::user()->userProfile->agama ?? '' }}" required placeholder="-" readonly>
+                                    <select name="agama" id="agama" class="form-control @if ($errors->data_anggota->first('agama')) is-invalid @endif" disabled>
+                                        <option value="" disabled {{ Auth::user()->userProfile->agama ? '' : 'selected' }}>Pilih Agama</option>
+                                        <option value="Islam" {{ Auth::user()->userProfile->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                        <option value="Kristen" {{ Auth::user()->userProfile->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                        <option value="Katolik" {{ Auth::user()->userProfile->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                                        <option value="Hindu" {{ Auth::user()->userProfile->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                        <option value="Budha" {{ Auth::user()->userProfile->agama == 'Budha' ? 'selected' : '' }}>Budha</option>
+                                        <option value="Konghucu" {{ Auth::user()->userProfile->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                    </select>
                                     @if ($errors->data_anggota->first('agama'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('agama') }}</strong>
@@ -241,7 +265,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="golongan-darah">Golongan Darah</label>
-                                    <input type="text" class="form-control @if ($errors->data_anggota->first('golongan-darah')) is-invalid @endif" id="golongan-darah" name="golongan-darah" value="{{ Auth::user()->userProfile->golongan_darah ?? '' }}" required placeholder="-" readonly>
+                                    <select name="golongan-darah" id="golongan-darah" class="form-control @if ($errors->data_anggota->first('golongan-darah')) is-invalid @endif" disabled>
+                                        <option value="" disabled {{ Auth::user()->userProfile->golongan_darah ? '' : 'selected' }}>Pilih Golongan Darah</option>
+                                        <option value="A+" {{ Auth::user()->userProfile->golongan_darah == 'A+' ? 'selected' : '' }}>A+</option>
+                                        <option value="A-" {{ Auth::user()->userProfile->golongan_darah == 'A-' ? 'selected' : '' }}>A-</option>
+                                        <option value="B+" {{ Auth::user()->userProfile->golongan_darah == 'B+' ? 'selected' : '' }}>B+</option>
+                                        <option value="B-" {{ Auth::user()->userProfile->golongan_darah == 'B-' ? 'selected' : '' }}>B-</option>
+                                        <option value="AB+" {{ Auth::user()->userProfile->golongan_darah == 'AB+' ? 'selected' : '' }}>AB+</option>
+                                        <option value="AB-" {{ Auth::user()->userProfile->golongan_darah == 'AB-' ? 'selected' : '' }}>AB-</option>
+                                        <option value="O+" {{ Auth::user()->userProfile->golongan_darah == 'O+' ? 'selected' : '' }}>O+</option>
+                                        <option value="O-" {{ Auth::user()->userProfile->golongan_darah == 'O-' ? 'selected' : '' }}>O-</option>
+                                    </select>
                                     @if ($errors->data_anggota->first('golongan-darah'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('golongan-darah') }}</strong>
