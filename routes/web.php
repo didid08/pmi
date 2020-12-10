@@ -8,6 +8,12 @@ Route::get('/', function() {
 });
 
 //Auth
+Route::get('/login', function () {
+	return redirect()->route('user.auth.login');
+});
+Route::get('/user/login', function () {
+	return redirect()->route('user.auth.login');
+});
 Route::get('/user/auth/login', [User\Auth\LoginController::class, 'showLoginForm'])->name('user.auth.login');
 Route::post('/user/auth/login', [User\Auth\LoginController::class, 'login'])->name('user.auth.login.process');
 Route::get('/user/auth/logout', [User\Auth\LoginController::class, 'logout'])->name('user.auth.logout');

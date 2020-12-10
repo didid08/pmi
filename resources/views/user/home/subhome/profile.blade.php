@@ -1,5 +1,4 @@
 @extends('user.home.home')
-@if ($errors->all()) {{ dd($errors->all()) }} @endif
 @section('header')
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item active">Profil Saya</li>
@@ -96,6 +95,10 @@
                     $(this).val(oldValue[$(this).attr("id")]);
                 });
             }
+
+            iziToast.error({
+                message: 'Terdapat kesalahan dalam memperbarui data anda'
+            });
         @endif
 
         function resetUbahPasswordInput() {
@@ -114,20 +117,20 @@
                             <div class="user-avatar">
                                 <img src="{{ asset('img/user.png') }}" alt="Le Rouge Admin" />
                             </div>
-                            <h5 class="user-name">{{ Auth::user()->userProfile->nama ?? explode('@', Auth::user()->email)[0] }}</h5>
+                            <h5 class="user-name">{{ Auth::user()->dataAnggota->nama ?? explode('@', Auth::user()->email)[0] }}</h5>
                             <h6 class="user-email">{{ Auth::user()->email }}</h6>
                         </div>
                         <div id="profile-menu">
                             <a href="javascript:void(0)" class="btn btn-primary" id="data-diri" onclick="showHideElement('data-diri', ['data-anggota', 'data-domisili-identitas'], ['ubah-password'])">Data diri</a>
                             <a href="javascript:void(0)" class="btn btn-white" id="pengaturan-akun" onclick="showHideElement('pengaturan-akun', ['ubah-password'], ['data-anggota', 'data-domisili-identitas'])">Pengaturan Akun</a>
-                            <a href="javascript:void(0)" class="btn btn-white">Kontak Darurat</a>
+                            {{--<a href="javascript:void(0)" class="btn btn-white">Kontak Darurat</a>
                             <a href="javascript:void(0)" class="btn btn-white">Riwayat Keanggotaan</a>
                             <a href="javascript:void(0)" class="btn btn-white">Pendidikan Formal</a>
                             <a href="javascript:void(0)" class="btn btn-white">Diklat PMI</a>
                             <a href="javascript:void(0)" class="btn btn-white">Sertifikasi</a>
                             <a href="javascript:void(0)" class="btn btn-white">Keahlian/Keterampilan</a>
                             <a href="javascript:void(0)" class="btn btn-white">Riwayat Organisasi</a>
-                            <a href="javascript:void(0)" class="btn btn-white">Riwayat Penghargaan</a>
+                            <a href="javascript:void(0)" class="btn btn-white">Riwayat Penghargaan</a>--}}
                         </div>
                     </div>
                 </div>
@@ -138,7 +141,7 @@
                 <form action="{{ route('user.home.profile.data-anggota.update') }}" method="POST">
                     <div class="card-header">
                         <div class="card-title">
-                            Data Anggota
+                            Profil
                             <div id="data-anggota-editor" style="display: inline; position: absolute; right: 1em">
                                 <button type="button" id="edit-data-anggota" class="btn btn-primary" onclick="editDataAnggota('show')"><i class="fa fa-pencil-alt mr-2"></i>Edit</button>
                                 <button id="batal-edit-data-anggota" type="button" class="btn btn-white" style="display: none" onclick="editDataAnggota('cancel')">Batal</button>
@@ -152,7 +155,7 @@
                                 <div class="form-group">
                                     <label for="kode-anggota">Kode Anggota</label>
                                     @csrf
-                                    <input type="text" class="form-control @if ($errors->data_anggota->first('kode-anggota')) is-invalid @endif" id="kode-anggota" name="kode-anggota" value="{{ Auth::user()->userProfile->kode_anggota ?? '' }}" required placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('kode-anggota')) is-invalid @endif" id="kode-anggota" name="kode-anggota" value="{{ Auth::user()->dataAnggota->kode_anggota ?? '' }}" required placeholder="-" readonly>
                                     @if ($errors->data_anggota->first('kode-anggota'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('kode-anggota') }}</strong>
@@ -161,7 +164,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="kode-anggota-lama">Kode Anggota Lama</label>
-                                    <input type="text" class="form-control @if ($errors->data_anggota->first('kode-anggota-lama')) is-invalid @endif" id="kode-anggota-lama" name="kode-anggota-lama" value="{{ Auth::user()->userProfile->kode_anggota_lama ?? '' }}" required placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('kode-anggota-lama')) is-invalid @endif" id="kode-anggota-lama" name="kode-anggota-lama" value="{{ Auth::user()->dataAnggota->kode_anggota_lama ?? '' }}" required placeholder="-" readonly>
                                     @if ($errors->data_anggota->first('kode-anggota-lama'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('kode-anggota-lama') }}</strong>
@@ -170,7 +173,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Nama</label>
-                                    <input type="text" class="form-control @if ($errors->data_anggota->first('nama')) is-invalid @endif" id="nama" name="nama" value="{{ Auth::user()->userProfile->nama ?? '' }}" required placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('nama')) is-invalid @endif" id="nama" name="nama" value="{{ Auth::user()->dataAnggota->nama ?? '' }}" required placeholder="-" readonly>
                                     @if ($errors->data_anggota->first('nama'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('nama') }}</strong>
@@ -180,9 +183,9 @@
                                 <div class="form-group">
                                     <label for="kelamin">Kelamin</label>
                                     <select name="kelamin" id="kelamin" class="form-control @if ($errors->data_anggota->first('kelamin')) is-invalid @endif" disabled>
-                                        <option value="" disabled {{ Auth::user()->userProfile->kelamin ? '' : 'selected' }}>Pilih Jenis Kelamin</option>
-                                        <option value="Laki-laki" {{ Auth::user()->userProfile->kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                        <option value="Perempuan" {{ Auth::user()->userProfile->kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                        <option value="" disabled {{ Auth::user()->dataAnggota->kelamin ? '' : 'selected' }}>Pilih Jenis Kelamin</option>
+                                        <option value="Laki-laki" {{ Auth::user()->dataAnggota->kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                        <option value="Perempuan" {{ Auth::user()->dataAnggota->kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                                     </select>
                                     @if ($errors->data_anggota->first('kelamin'))
                                         <span class="invalid-feedback" role="alert">
@@ -192,7 +195,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="no-hp">No. HP</label>
-                                    <input type="text" class="form-control @if ($errors->data_anggota->first('no-hp')) is-invalid @endif" id="no-hp" name="no-hp" value="{{ Auth::user()->userProfile->no_hp ?? '' }}" required placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('no-hp')) is-invalid @endif" id="no-hp" name="no-hp" value="{{ Auth::user()->dataAnggota->no_hp ?? '' }}" required placeholder="-" readonly>
                                     @if ($errors->data_anggota->first('no-hp'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('no-hp') }}</strong>
@@ -212,7 +215,7 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="tempat-lahir">Tempat Lahir</label>
-                                    <input type="text" class="form-control @if ($errors->data_anggota->first('tempat-lahir')) is-invalid @endif" id="tempat-lahir" name="tempat-lahir" value="{{ Auth::user()->userProfile->tempat_lahir ?? '' }}" required placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('tempat-lahir')) is-invalid @endif" id="tempat-lahir" name="tempat-lahir" value="{{ Auth::user()->dataAnggota->tempat_lahir ?? '' }}" required placeholder="-" readonly>
                                     @if ($errors->data_anggota->first('tempat-lahir'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('tempat-lahir') }}</strong>
@@ -221,7 +224,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="tanggal-lahir">Tanggal Lahir</label>
-                                    <input type="date" class="form-control @if ($errors->data_anggota->first('tanggal-lahir')) is-invalid @endif" id="tanggal-lahir" name="tanggal-lahir" value="{{ Auth::user()->userProfile->tanggal_lahir ?? '' }}" required placeholder="-" readonly>
+                                    <input type="date" class="form-control @if ($errors->data_anggota->first('tanggal-lahir')) is-invalid @endif" id="tanggal-lahir" name="tanggal-lahir" value="{{ Auth::user()->dataAnggota->tanggal_lahir ?? '' }}" required placeholder="-" readonly>
                                     @if ($errors->data_anggota->first('tanggal-lahir'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('tanggal-lahir') }}</strong>
@@ -230,7 +233,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="jenis-identitas">Jenis Identitas</label>
-                                    <input type="text" class="form-control @if ($errors->data_anggota->first('jenis-identitas')) is-invalid @endif" id="jenis-identitas" name="jenis-identitas" value="{{ Auth::user()->userProfile->jenis_identitas ?? '' }}" required placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('jenis-identitas')) is-invalid @endif" id="jenis-identitas" name="jenis-identitas" value="{{ Auth::user()->dataAnggota->jenis_identitas ?? '' }}" required placeholder="-" readonly>
                                     @if ($errors->data_anggota->first('jenis-identitas'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('jenis-identitas') }}</strong>
@@ -239,7 +242,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="nomor-induk-kependudukan">Nomor Induk Kependudukan</label>
-                                    <input type="text" class="form-control @if ($errors->data_anggota->first('nomor-induk-kependudukan')) is-invalid @endif" id="nomor-induk-kependudukan" name="nomor-induk-kependudukan" value="{{ Auth::user()->userProfile->nik ?? '' }}" required placeholder="-" readonly>
+                                    <input type="text" class="form-control @if ($errors->data_anggota->first('nomor-induk-kependudukan')) is-invalid @endif" id="nomor-induk-kependudukan" name="nomor-induk-kependudukan" value="{{ Auth::user()->dataAnggota->nik ?? '' }}" required placeholder="-" readonly>
                                     @if ($errors->data_anggota->first('nomor-induk-kependudukan'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->data_anggota->first('nomor-induk-kependudukan') }}</strong>
@@ -249,13 +252,13 @@
                                 <div class="form-group">
                                     <label for="agama">Agama</label>
                                     <select name="agama" id="agama" class="form-control @if ($errors->data_anggota->first('agama')) is-invalid @endif" disabled>
-                                        <option value="" disabled {{ Auth::user()->userProfile->agama ? '' : 'selected' }}>Pilih Agama</option>
-                                        <option value="Islam" {{ Auth::user()->userProfile->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
-                                        <option value="Kristen" {{ Auth::user()->userProfile->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
-                                        <option value="Katolik" {{ Auth::user()->userProfile->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
-                                        <option value="Hindu" {{ Auth::user()->userProfile->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
-                                        <option value="Budha" {{ Auth::user()->userProfile->agama == 'Budha' ? 'selected' : '' }}>Budha</option>
-                                        <option value="Konghucu" {{ Auth::user()->userProfile->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                                        <option value="" disabled {{ Auth::user()->dataAnggota->agama ? '' : 'selected' }}>Pilih Agama</option>
+                                        <option value="Islam" {{ Auth::user()->dataAnggota->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
+                                        <option value="Kristen" {{ Auth::user()->dataAnggota->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
+                                        <option value="Katolik" {{ Auth::user()->dataAnggota->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                                        <option value="Hindu" {{ Auth::user()->dataAnggota->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                                        <option value="Budha" {{ Auth::user()->dataAnggota->agama == 'Budha' ? 'selected' : '' }}>Budha</option>
+                                        <option value="Konghucu" {{ Auth::user()->dataAnggota->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
                                     </select>
                                     @if ($errors->data_anggota->first('agama'))
                                         <span class="invalid-feedback" role="alert">
@@ -266,15 +269,15 @@
                                 <div class="form-group">
                                     <label for="golongan-darah">Golongan Darah</label>
                                     <select name="golongan-darah" id="golongan-darah" class="form-control @if ($errors->data_anggota->first('golongan-darah')) is-invalid @endif" disabled>
-                                        <option value="" disabled {{ Auth::user()->userProfile->golongan_darah ? '' : 'selected' }}>Pilih Golongan Darah</option>
-                                        <option value="A+" {{ Auth::user()->userProfile->golongan_darah == 'A+' ? 'selected' : '' }}>A+</option>
-                                        <option value="A-" {{ Auth::user()->userProfile->golongan_darah == 'A-' ? 'selected' : '' }}>A-</option>
-                                        <option value="B+" {{ Auth::user()->userProfile->golongan_darah == 'B+' ? 'selected' : '' }}>B+</option>
-                                        <option value="B-" {{ Auth::user()->userProfile->golongan_darah == 'B-' ? 'selected' : '' }}>B-</option>
-                                        <option value="AB+" {{ Auth::user()->userProfile->golongan_darah == 'AB+' ? 'selected' : '' }}>AB+</option>
-                                        <option value="AB-" {{ Auth::user()->userProfile->golongan_darah == 'AB-' ? 'selected' : '' }}>AB-</option>
-                                        <option value="O+" {{ Auth::user()->userProfile->golongan_darah == 'O+' ? 'selected' : '' }}>O+</option>
-                                        <option value="O-" {{ Auth::user()->userProfile->golongan_darah == 'O-' ? 'selected' : '' }}>O-</option>
+                                        <option value="" disabled {{ Auth::user()->dataAnggota->golongan_darah ? '' : 'selected' }}>Pilih Golongan Darah</option>
+                                        <option value="A+" {{ Auth::user()->dataAnggota->golongan_darah == 'A+' ? 'selected' : '' }}>A+</option>
+                                        <option value="A-" {{ Auth::user()->dataAnggota->golongan_darah == 'A-' ? 'selected' : '' }}>A-</option>
+                                        <option value="B+" {{ Auth::user()->dataAnggota->golongan_darah == 'B+' ? 'selected' : '' }}>B+</option>
+                                        <option value="B-" {{ Auth::user()->dataAnggota->golongan_darah == 'B-' ? 'selected' : '' }}>B-</option>
+                                        <option value="AB+" {{ Auth::user()->dataAnggota->golongan_darah == 'AB+' ? 'selected' : '' }}>AB+</option>
+                                        <option value="AB-" {{ Auth::user()->dataAnggota->golongan_darah == 'AB-' ? 'selected' : '' }}>AB-</option>
+                                        <option value="O+" {{ Auth::user()->dataAnggota->golongan_darah == 'O+' ? 'selected' : '' }}>O+</option>
+                                        <option value="O-" {{ Auth::user()->dataAnggota->golongan_darah == 'O-' ? 'selected' : '' }}>O-</option>
                                     </select>
                                     @if ($errors->data_anggota->first('golongan-darah'))
                                         <span class="invalid-feedback" role="alert">
@@ -326,7 +329,7 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="card h-100">
                 <div class="card-header">
-                    <div class="card-title">Data Domisili</div>
+                    <div class="card-title">Domisili</div>
                 </div>
                 <div class="card-body">
                     <div class="row gutters">
@@ -391,7 +394,7 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="card h-100">
                 <div class="card-header">
-                    <div class="card-title">Data Identitas</div>
+                    <div class="card-title">Identitas</div>
                 </div>
                 <div class="card-body">
                     <div class="row gutters">

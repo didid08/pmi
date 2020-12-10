@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\UserProfile;
+use App\Models\DataAnggota;
 
 class ProfileController extends HomeController
 {
@@ -21,14 +21,14 @@ class ProfileController extends HomeController
 
     public function updateDataAnggota(Request $request)
     {
-        $userProfileRealId = Auth::user()->userProfile->id;
+        $dataAnggotaRealId = Auth::user()->dataAnggota->id;
 
         $validator = Validator::make($request->all(), [
-            'kode-anggota' => 'required|numeric|unique:user_profiles,kode_anggota,'.$userProfileRealId,
-            'kode-anggota-lama' => 'required|numeric|unique:user_profiles,kode_anggota_lama,'.$userProfileRealId,
+            'kode-anggota' => 'required|numeric|unique:user_profiles,kode_anggota,'.$dataAnggotaRealId,
+            'kode-anggota-lama' => 'required|numeric|unique:user_profiles,kode_anggota_lama,'.$dataAnggotaRealId,
             'nama' => 'required',
             'kelamin' => 'required',
-            'no-hp' => 'required|numeric|unique:user_profiles,no_hp,'.$userProfileRealId,
+            'no-hp' => 'required|numeric|unique:user_profiles,no_hp,'.$dataAnggotaRealId,
             'tempat-lahir' => 'required',
             'tanggal-lahir' => 'required|date',
             'jenis-identitas' => 'required',
@@ -67,7 +67,7 @@ class ProfileController extends HomeController
             'email' => $request->input('email')
         ]);
 
-        UserProfile::updateOrCreate([
+        DataAnggota::updateOrCreate([
             'user_id' => Auth::id()
         ], [
             'kode_anggota' => $request->input('kode-anggota'),

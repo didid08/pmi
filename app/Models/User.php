@@ -17,9 +17,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'role',
         'name',
         'email',
-        'password',
+        'nickname',
+        'password'
     ];
 
     /**
@@ -41,8 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function userProfile()
+    public function dataAnggota()
     {
-        return $this->hasOne('App\Models\UserProfile');
+        return $this->hasOne('App\Models\DataAnggota');
+    }
+
+    public function dataInstansi()
+    {
+        return $this->hasOne('App\Models\DataInstansi');
     }
 }

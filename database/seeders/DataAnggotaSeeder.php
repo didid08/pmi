@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class UserProfileSeeder extends Seeder
+class DataAnggotaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class UserProfileSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('user_profiles')->insert([
+        DB::table('data_anggota')->insert([
             'user_id' => 1
         ]);
     }

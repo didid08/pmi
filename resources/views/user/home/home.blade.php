@@ -61,7 +61,7 @@
 				<div class="sidebar-brand">
 					<a href="{{ route('user.home.dashboard') }}" class="logo">
 						<img src="{{ asset('img/pmi.png') }}" alt="PMI Lhokseumawe" />
-						<span class="text-white ml-2" style="font-size: 1.2em; font-weight: bold;">PMI Lhokseumawe</span>
+						<span class="text-white ml-2" style="font-size: 1.2em; font-weight: bold;">PMI</span>
 					</a>
 				</div>
 				<!-- Sidebar brand end  -->
@@ -74,7 +74,7 @@
 						<ul>
 							<li class="{{ $activeMenu == 'dashboard' ? 'active' : '' }}">
 								<a href="{{ route('user.home.dashboard') }}">
-									<i class="fa fa-dashboard"></i>
+									<i class="fa fa-home"></i>
 									<span class="menu-text">Dashboard</span>
 								</a>
 							</li>
@@ -86,7 +86,7 @@
 							</li>
 							<li>
 								<a href="/">
-									<i class="fa fa-building-o"></i>
+									<i class="fa fa-flag"></i>
 									<span class="menu-text">TSR</span>
 								</a>
 							</li>
@@ -215,7 +215,7 @@
 							</li>
 							<li class="dropdown">
 								<a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
-									<span class="user-name">User</span>
+									<span class="user-name">{{ Auth::user()->userProfile->nama ?? explode('@', Auth::user()->email)[0] }}</span>
 									<span class="avatar">
 										<img src="{{ asset('img/user.png') }}" alt="avatar">
 										<span class="status busy"></span>
