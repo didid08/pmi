@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class DataAnggotaSeeder extends Seeder
+class SettingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,9 @@ class DataAnggotaSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('data_anggota')->insert([
-            'user_id' => 1
+        DB::table('settings')->insert([
+            'key' => 'title',
+            'value' => 'PMI Lhokseumawe'
         ]);
     }
 }

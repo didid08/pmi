@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Setting;
 
 class HomeController extends Controller
 {
@@ -16,6 +17,7 @@ class HomeController extends Controller
     {
         return view('user.home.subhome.'.$view, array_merge([
             'activeMenu' => $this->activeMenu,
+            'title' => Setting::firstWhere('key', 'title')->value,
             'subTitle' => $this->subTitle
         ], $data));
     }

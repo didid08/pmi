@@ -11,7 +11,7 @@
 		<link rel="shortcut icon" href="{{ asset('img/fav.png') }}" />
 
 		<!-- Title -->
-		<title>PMI Lhokseumawe - User Area | Home | {{ $subTitle }}</title>
+		<title>{{ $title }} - User Area | Home | {{ $subTitle }}</title>
 
 
 		<!-- *************
@@ -35,6 +35,12 @@
 
 		<!-- iziToast -->
 		<link rel="stylesheet" href="{{ asset('css/iziToast.min.css') }}">
+
+		<style>
+			body {
+				
+			}
+		</style>
 
 		<!-- Custom CSS -->
 		@yield('custom-css')
@@ -61,7 +67,7 @@
 				<div class="sidebar-brand">
 					<a href="{{ route('user.home.dashboard') }}" class="logo">
 						<img src="{{ asset('img/pmi.png') }}" alt="PMI Lhokseumawe" />
-						<span class="text-white ml-2" style="font-size: 1.2em; font-weight: bold;">PMI</span>
+						<span class="text-white ml-2" style="font-size: 1.2em; font-weight: bold;">{{ $title }}</span>
 					</a>
 				</div>
 				<!-- Sidebar brand end  -->
@@ -72,6 +78,7 @@
 					<!-- sidebar menu start -->
 					<div class="sidebar-menu">
 						<ul>
+							<li class="header-menu">General</li>
 							<li class="{{ $activeMenu == 'dashboard' ? 'active' : '' }}">
 								<a href="{{ route('user.home.dashboard') }}">
 									<i class="fa fa-home"></i>
@@ -125,12 +132,55 @@
 									</ul>
 								</div>
 							</li>
+							<li class="header-menu">Additional</li>
 							<li class="{{ $activeMenu == 'profile' ? 'active' : '' }}">
 								<a href="{{ route('user.home.profile') }}">
-									<i class="fa fa-user-o"></i>
-									<span class="menu-text">Profil Saya</span>
+									<i class="fa fa-user-circle"></i>
+									<span class="menu-text">Profil</span>
 								</a>
 							</li>
+							@if (!in_array(Auth::user()->role, [1,3]))
+								<li class="sidebar-dropdown">
+									<a href="#">
+										<i class="fa fa-users-cog"></i>
+										<span class="menu-text">Manajemen User</span>
+									</a>
+									<div class="sidebar-submenu">
+										<ul>
+											@if (Auth::user()->role == 5)
+												<li>
+													<a href="/">Manajemen Admin</a>
+												</li>
+											@endif
+											@if (!in_array(Auth::user()->role, [2]))
+												<li>
+													<a href="/">Manajemen Sekolah/Instansi</a>
+												</li>
+											@endif
+											<li>
+												<a href="/">Manajemen Anggota</a>
+											</li>
+
+										</ul>
+									</div>
+								</li>
+							@endif
+							@if (!in_array(Auth::user()->role, [1,2]))
+								<li class="{{ $activeMenu == 'manajemen-data' ? 'active' : '' }}">
+									<a href="">
+										<i class="fa fa-chart-pie"></i>
+										<span class="menu-text">Manajemen Data/Statistik</span>
+									</a>
+								</li>
+							@endif
+							@if (Auth::user()->role == 5)
+								<li class="{{ $activeMenu == 'pengaturan-website' ? 'active' : '' }}">
+									<a href="">
+										<i class="fa fa-cog"></i>
+										<span class="menu-text">Pengaturan Website</span>
+									</a>
+								</li>
+							@endif
 						</ul>
 					</div>
 					<!-- sidebar menu end -->
@@ -228,7 +278,26 @@
 												<img src="{{ asset('img/user.png') }}" alt="">
 											</div>
 											<h5>{{ Auth::user()->userProfile->nama ?? explode('@', Auth::user()->email)[0] }}</h5>
-											<p>{{ substr(Auth::user()->email, 0, 15) }}{{ strlen(Auth::user()->email) > 15 ? '...' : '' }}</p>
+											@php
+												$roleName = [
+													'Tamu',
+													'Anggota',
+													'Sekolah/Instansi',
+													'Moderator',
+													'Admin',
+													'Master'
+												];
+												$roleIcon = [
+													'a',
+													'fa-user',
+													'fa-school',
+													'fa-user-tie',
+													'fa-user-shield',
+													'fa-user-secret'
+												];
+											@endphp
+											<p>{{-- <iclass="mr-2fa$roleIcon[Auth::user()->role]"></i>--}}{{ $roleName[Auth::user()->role] }}</p>
+											{{-- <p>{{ substr(Auth::user()->email, 0, 15) }}{{ strlen(Auth::user()->email) > 15 ? '...' : '' }}</p> --}}
 										</div>
 										<a href="{{ route('user.home.profile') }}"><i class="icon-user1"></i> Profil</a>
 										<a href="{{ route('user.auth.logout') }}"><i class="icon-log-out1"></i> Keluar</a>

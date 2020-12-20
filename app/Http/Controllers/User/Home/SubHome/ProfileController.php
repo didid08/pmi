@@ -12,14 +12,14 @@ use App\Models\DataAnggota;
 class ProfileController extends HomeController
 {
     public $activeMenu = 'profile';
-    public $subTitle = 'Profil Saya';
+    public $subTitle = 'Profil';
 
     public function viewPage ()
     {
         return $this->view('profile');
     }
 
-    public function updateDataAnggota(Request $request)
+    public function updateDataAnggota (Request $request)
     {
         $dataAnggotaRealId = Auth::user()->dataAnggota->id;
 
@@ -84,5 +84,10 @@ class ProfileController extends HomeController
         ]);
 
         return redirect()->back()->with('success', 'Data Anggota Berhasil Diperbarui');
+    }
+
+    public function updateDataInstansi (Request $request)
+    {
+
     }
 }
