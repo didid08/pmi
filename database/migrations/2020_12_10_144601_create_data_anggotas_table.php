@@ -16,6 +16,7 @@ class CreateDataAnggotasTable extends Migration
         Schema::create('data_anggota', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
+            $table->string('instansi')->nullable();
             $table->string('foto')->nullable();
             $table->string('kode_anggota')->nullable();
             $table->string('kode_anggota_lama')->nullable();

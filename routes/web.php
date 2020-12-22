@@ -36,4 +36,7 @@ Route::middleware('auth')->group(function ()
 		Route::get('/user/home/profile', [User\Home\SubHome\ProfileController::class, 'viewPage'])->name('user.home.profile');
 		Route::post('/user/home/profile/data-anggota/update', [User\Home\SubHome\ProfileController::class, 'updateDataAnggota'])->name('user.home.profile.data-anggota.update');
 		Route::post('/user/home/profile/data-instansi/update', [User\Home\SubHome\ProfileController::class, 'updateDataInstansi'])->name('user.home.profile.data-instansi.update');
+
+		//User Management
+		Route::get('/user/home/user-management', [User\Home\SubHome\UserManagementController::class, 'viewPage'])->name('user.home.user-management');
 });

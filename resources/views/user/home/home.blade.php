@@ -25,22 +25,8 @@
 		<script src="https://kit.fontawesome.com/c5f8c2ba34.js" crossorigin="anonymous"></script>
 		<!-- Main css -->
 		<link rel="stylesheet" href="{{ asset('css/main.css') }}">
-
-
-		<!-- *************
-			************ Vendor Css Files *************
-		************ -->
-		<!-- DateRange css -->
-		<link rel="stylesheet" href="{{ asset('vendor/daterange/daterange.css') }}" />
-
 		<!-- iziToast -->
 		<link rel="stylesheet" href="{{ asset('css/iziToast.min.css') }}">
-
-		<style>
-			body {
-				
-			}
-		</style>
 
 		<!-- Custom CSS -->
 		@yield('custom-css')
@@ -140,29 +126,11 @@
 								</a>
 							</li>
 							@if (!in_array(Auth::user()->role, [1,3]))
-								<li class="sidebar-dropdown">
-									<a href="#">
+								<li class="{{ $activeMenu == 'manajeman-user' ? 'active' : '' }}">
+									<a href="{{ route('user.home.user-management') }}">
 										<i class="fa fa-users-cog"></i>
 										<span class="menu-text">Manajemen User</span>
 									</a>
-									<div class="sidebar-submenu">
-										<ul>
-											@if (Auth::user()->role == 5)
-												<li>
-													<a href="/">Manajemen Admin</a>
-												</li>
-											@endif
-											@if (!in_array(Auth::user()->role, [2]))
-												<li>
-													<a href="/">Manajemen Sekolah/Instansi</a>
-												</li>
-											@endif
-											<li>
-												<a href="/">Manajemen Anggota</a>
-											</li>
-
-										</ul>
-									</div>
 								</li>
 							@endif
 							@if (!in_array(Auth::user()->role, [1,2]))

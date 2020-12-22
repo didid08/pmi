@@ -21,14 +21,17 @@ class ProfileController extends HomeController
 
     public function updateDataAnggota (Request $request)
     {
-        $dataAnggotaRealId = Auth::user()->dataAnggota->id;
+        $dataAnggotaRealId = '';
+        if (isset(Auth::user()->dataAnggota->id)) {
+            $dataAnggotaRealId = ','.Auth::user()->dataAnggota->id;
+        }
 
         $validator = Validator::make($request->all(), [
-            'kode-anggota' => 'required|numeric|unique:user_profiles,kode_anggota,'.$dataAnggotaRealId,
-            'kode-anggota-lama' => 'required|numeric|unique:user_profiles,kode_anggota_lama,'.$dataAnggotaRealId,
+            'kode-anggota' => 'required|numeric|unique:data_anggota,kode_anggota'.$dataAnggotaRealId,
+            'kode-anggota-lama' => 'required|numeric|unique:data_anggota,kode_anggota_lama'.$dataAnggotaRealId,
             'nama' => 'required',
             'kelamin' => 'required',
-            'no-hp' => 'required|numeric|unique:user_profiles,no_hp,'.$dataAnggotaRealId,
+            'no-hp' => 'required|numeric|unique:data_anggota,no_hp'.$dataAnggotaRealId,
             'tempat-lahir' => 'required',
             'tanggal-lahir' => 'required|date',
             'jenis-identitas' => 'required',

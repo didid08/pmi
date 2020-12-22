@@ -1,7 +1,7 @@
 @extends('user.home.home')
 @section('header')
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item active">Profil</li>
+		<li class="breadcrumb-item active">{{ $subTitle }}</li>
 	</ol>
 @endsection
 
