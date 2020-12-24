@@ -1,25 +1,27 @@
-// Example Basic
-$("#example-basic").steps({
+$("#tambah-anggota-form").steps({
 	headerTag: "h3",
 	bodyTag: "section",
 	transitionEffect: "slideLeft",
 	autoFocus: true,
 });
 
-
-// Example Form
-$("#example-form").steps({
+$("#tambah-instansi-form").steps({
 	headerTag: "h3",
 	bodyTag: "section",
 	transitionEffect: "slideLeft",
 	autoFocus: true,
 });
 
-
-// Example Vertical
-$("#example-vertical").steps({
+$("#tambah-moderator-form").steps({
 	headerTag: "h3",
 	bodyTag: "section",
 	transitionEffect: "slideLeft",
-	stepsOrientation: "vertical"
+	autoFocus: true,
+});
+
+$("#tambah-admin-form").steps({
+	headerTag: "h3",
+	bodyTag: "section",
+	transitionEffect: "slideLeft",
+	autoFocus: true,
 });

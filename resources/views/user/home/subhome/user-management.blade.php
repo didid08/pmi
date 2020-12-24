@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="{{ asset('vendor/datatables/dataTables.bs4.css') }}" />
     <link rel="stylesheet" href="{{ asset('vendor/datatables/dataTables.bs4-custom.css') }}" />
     <link href="{{ asset('vendor/datatables/buttons.bs.css') }}" rel="stylesheet" />
+
+    <!-- Steps Wizard CSS -->
+    <link rel="stylesheet" href="{{ asset('vendor/wizard/jquery.steps.css') }}" />
+
+    <!-- Bootstrap Select CSS -->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">-->
 @endsection
 
 @section('custom-script')
@@ -21,13 +27,31 @@
     <!-- Custom Data tables -->
     <script src="{{ asset('vendor/datatables/custom/custom-datatables.js') }}"></script>
     <script src="{{ asset('vendor/datatables/custom/fixedHeader.js') }}"></script>
+
+    <!-- Steps wizard JS -->
+    <script src="{{ asset('vendor/wizard/jquery.steps.min.js') }}"></script>
+    <script src="{{ asset('vendor/wizard/jquery.steps.custom.js') }}"></script>
+
+    <!-- Bootstrap Select JS -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>-->
+
+    <script>
+        var backToListUser = () => {
+            $("#tambah-user-header-title").html("");
+            $("#tambah-user-header").css("display", "none");
+            $(".tambah-user").css("display", "none");
+
+            $("#list-user-menu").fadeIn();
+            $("#list-user").fadeIn();
+        };
+    </script>
 @endsection
 
 @section('main')
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="table-container mb-2">
-                <ul class="nav nav-pills ml-2" id="pills-tab" role="tablist">
+            <div class="table-container mb-2" id="container-top">
+                <ul class="nav nav-pills ml-2" id="list-user-menu" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="anggota-tab" data-toggle="pill" href="#anggota-tabel" role="tab" aria-controls="anggota-tabel" aria-selected="true">Anggota</a>
                     </li>
@@ -41,12 +65,20 @@
                         <a class="nav-link" id="admin-tab" data-toggle="pill" href="#admin-tabel" role="tab" aria-controls="admin-tabel" aria-selected="false">Admin</a>
                     </li>
                 </ul>
+
+                <!-- Tambah User Header -->
+                <div id="tambah-user-header" style="display: none">
+                    <button class="btn btn-primary ml-2 mr-2" onclick="backToListUser()"><i class="fa fa-arrow-left mr-2"></i>Balik</button>
+                    <span id="tambah-user-header-title" style="font-size: 1.1em"></span>
+                </div>
+                
             </div>
-            <div class="table-container">
-                <div class="tab-content" id="pills-tabContent">
+            <div class="table-container" id="container-bottom">
+                <div class="tab-content" id="list-user">
                     <!-- Anggota -->
                     <div class="tab-pane fade show active" id="anggota-tabel" role="tabpanel" aria-labelledby="anggota-tab">
-                        <button class="btn btn-outline-primary mb-4"><i class="fa fa-plus mr-2"></i>Tambah Anggota</button>
+                        <button class="btn btn-outline-primary mb-4" data-toggle="modal" data-target="#tambah-anggota"><i class="fa fa-plus mr-2"></i>Tambah Anggota</button>
+                        @include('user.home.subhome.user-management.anggota.tambah-anggota')
                         <div class="table-responsive">
                             <table class="table custom-table" id="tabel-anggota">
                                 <thead>

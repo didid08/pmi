@@ -126,7 +126,7 @@
 								</a>
 							</li>
 							@if (!in_array(Auth::user()->role, [1,3]))
-								<li class="{{ $activeMenu == 'manajeman-user' ? 'active' : '' }}">
+								<li class="{{ $activeMenu == 'manajemen-user' ? 'active' : '' }}">
 									<a href="{{ route('user.home.user-management') }}">
 										<i class="fa fa-users-cog"></i>
 										<span class="menu-text">Manajemen User</span>
