@@ -78,6 +78,7 @@
                     <!-- Anggota -->
                     <div class="tab-pane fade show active" id="anggota-tabel" role="tabpanel" aria-labelledby="anggota-tab">
                         <button class="btn btn-outline-primary mb-4" data-toggle="modal" data-target="#tambah-anggota"><i class="fa fa-plus mr-2"></i>Tambah Anggota</button>
+                        <button class="btn btn-outline-secondary mb-4" data-toggle="modal" data-target="#tambah-anggota-batch"><i class="fa fa-copy mr-2"></i>Batch</button>
                         @include('user.home.subhome.user-management.anggota.tambah-anggota')
                         <div class="table-responsive">
                             <table class="table custom-table" id="tabel-anggota">

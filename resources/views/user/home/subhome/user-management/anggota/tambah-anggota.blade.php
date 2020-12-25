@@ -200,26 +200,151 @@
                                 <div class="row gutters">
                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
                                         <div class="form-group">
-                                            <label for="addrEss">Address</label>
-                                            <input type="text" class="form-control" id="addrEss" placeholder="Flat No">
+                                            <label for="domisili-provinsi">Provinsi</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-provinsi')) is-invalid @endif" id="domisili-provinsi" name="domisili-provinsi" required placeholder="Masukkan Provinsi" value="{{ old('domisili-provinsi') }}">
+                                            @if ($errors->data_anggota->first('domisili-provinsi'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-provinsi') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
                                         <div class="form-group">
-                                            <label for="ciTy">City</label>
-                                            <input type="text" class="form-control" id="ciTy" placeholder="City">
+                                            <label for="domisili-kabupaten-kota">Kabupaten/Kota</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-kabupaten-kota')) is-invalid @endif" id="domisili-kabupaten-kota" name="domisili-kabupaten-kota" required placeholder="Masukkan Kabupaten/Kota" value="{{ old('domisili-kabupaten-kota') }}">
+                                            @if ($errors->data_anggota->first('domisili-kabupaten-kota'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-kabupaten-kota') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
                                         <div class="form-group">
-                                            <label for="sTate">State</label>
-                                            <input type="text" class="form-control" id="sTate" placeholder="State">
+                                            <label for="domisili-kecamatan">Kecamatan</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-kecamatan')) is-invalid @endif" id="domisili-kecamatan" name="domisili-kecamatan" required placeholder="Masukkan Kecamatan" value="{{ old('domisili-kecamatan') }}">
+                                            @if ($errors->data_anggota->first('domisili-kecamatan'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-kecamatan') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
                                         <div class="form-group">
-                                            <label for="counTry">Country</label>
-                                            <input type="text" class="form-control" id="counTry" placeholder="Country">
+                                            <label for="domisili-desa-kelurahan">Desa/Kelurahan</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-desa-kelurahan')) is-invalid @endif" id="domisili-desa-kelurahan" name="domisili-desa-kelurahan" required placeholder="Masukkan Desa/Kelurahan" value="{{ old('domisili-desa-kelurahan') }}">
+                                            @if ($errors->data_anggota->first('domisili-desa-kelurahan'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-desa-kelurahan') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gutters">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="domisili-alamat">Alamat</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-alamat')) is-invalid @endif" id="domisili-alamat" name="domisili-alamat" required placeholder="Masukkan Alamat" value="{{ old('domisili-alamat') }}">
+                                            @if ($errors->data_anggota->first('domisili-alamat'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-alamat') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="domisili-rt">RT</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-rt')) is-invalid @endif" id="domisili-rt" name="domisili-rt" required placeholder="Masukkan RT" value="{{ old('domisili-rt') }}">
+                                            @if ($errors->data_anggota->first('domisili-rt'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-rt') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="domisili-rw">RW</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-rw')) is-invalid @endif" id="domisili-rw" name="domisili-rw" required placeholder="Masukkan RW" value="{{ old('domisili-rw') }}">
+                                            @if ($errors->data_anggota->first('domisili-rw'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-rw') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="domisili-kode-pos">Kode Pos</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-kode-pos')) is-invalid @endif" id="domisili-kode-pos" name="domisili-kode-pos" required placeholder="Masukkan Kode Pos" value="{{ old('domisili-kode-pos') }}">
+                                            @if ($errors->data_anggota->first('domisili-kode-pos'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-kode-pos') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gutters">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="domisili-no-telp">No. Telp</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-no-telp')) is-invalid @endif" id="domisili-no-telp" name="domisili-no-telp" required placeholder="Masukkan No. Telp" value="{{ old('domisili-no-telp') }}">
+                                            @if ($errors->data_anggota->first('domisili-no-telp'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-no-telp') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="domisili-status-kepemilikan">Status Kepemilikan</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-status-kepemilikan')) is-invalid @endif" id="domisili-status-kepemilikan" name="domisili-status-kepemilikan" required placeholder="Masukkan Status Kepemilikan" value="{{ old('domisili-status-kepemilikan') }}">
+                                            @if ($errors->data_anggota->first('domisili-status-kepemilikan'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-status-kepemilikan') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="domisili-status-tinggal">Status Tinggal</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-status-tinggal')) is-invalid @endif" id="domisili-status-tinggal" name="domisili-status-tinggal" required placeholder="Masukkan Status Tinggal" value="{{ old('domisili-status-tinggal') }}">
+                                            @if ($errors->data_anggota->first('domisili-status-tinggal'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-status-tinggal') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="domisili-catatan">Catatan</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-catatan')) is-invalid @endif" id="domisili-catatan" name="domisili-catatan" required placeholder="Masukkan Catatan" value="{{ old('domisili-catatan') }}">
+                                            @if ($errors->data_anggota->first('domisili-catatan'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-catatan') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gutters">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="domisili-status-aktif">Status Aktif</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('domisili-status-aktif')) is-invalid @endif" id="domisili-status-aktif" name="domisili-status-aktif" required placeholder="Masukkan Status Aktif" value="{{ old('domisili-status-aktif') }}">
+                                            @if ($errors->data_anggota->first('domisili-status-aktif'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('domisili-status-aktif') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -227,28 +352,107 @@
                             <h3>Identitas</h3>
                             <section>
                                 <div class="row gutters">
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
                                         <div class="form-group">
-                                            <label for="cardNum">Card Number</label>
-                                            <input type="text" class="form-control" id="cardNum" placeholder="Enter Card Number">
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                                        <div class="form-group">
-                                            <label for="nameOnCard">Name On Card</label>
-                                            <input type="text" class="form-control" id="nameOnCard" placeholder="Name On Card">
+                                            <label for="identitas-provinsi">Provinsi</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('identitas-provinsi')) is-invalid @endif" id="identitas-provinsi" name="identitas-provinsi" required placeholder="Masukkan Provinsi" value="{{ old('identitas-provinsi') }}">
+                                            @if ($errors->data_anggota->first('identitas-provinsi'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('identitas-provinsi') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
                                         <div class="form-group">
-                                            <label for="expDate">Expiry Date</label>
-                                            <input type="text" class="form-control" id="expDate" placeholder="Card Expiry Date">
+                                            <label for="identitas-kabupaten-kota">Kabupaten/Kota</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('identitas-kabupaten-kota')) is-invalid @endif" id="identitas-kabupaten-kota" name="identitas-kabupaten-kota" required placeholder="Masukkan Kabupaten/Kota" value="{{ old('identitas-kabupaten-kota') }}">
+                                            @if ($errors->data_anggota->first('identitas-kabupaten-kota'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('identitas-kabupaten-kota') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
-                                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-12">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
                                         <div class="form-group">
-                                            <label for="cvv">CVV</label>
-                                            <input type="number" class="form-control" id="cvv" placeholder="CVV">
+                                            <label for="identitas-kecamatan">Kecamatan</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('identitas-kecamatan')) is-invalid @endif" id="identitas-kecamatan" name="identitas-kecamatan" required placeholder="Masukkan Kecamatan" value="{{ old('identitas-kecamatan') }}">
+                                            @if ($errors->data_anggota->first('identitas-kecamatan'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('identitas-kecamatan') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="identitas-desa-kelurahan">Desa/Kelurahan</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('identitas-desa-kelurahan')) is-invalid @endif" id="identitas-desa-kelurahan" name="identitas-desa-kelurahan" required placeholder="Masukkan Desa/Kelurahan" value="{{ old('identitas-desa-kelurahan') }}">
+                                            @if ($errors->data_anggota->first('identitas-desa-kelurahan'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('identitas-desa-kelurahan') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gutters">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="identitas-alamat">Alamat</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('identitas-alamat')) is-invalid @endif" id="identitas-alamat" name="identitas-alamat" required placeholder="Masukkan Alamat" value="{{ old('identitas-alamat') }}">
+                                            @if ($errors->data_anggota->first('identitas-alamat'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('identitas-alamat') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="identitas-rt">RT</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('identitas-rt')) is-invalid @endif" id="identitas-rt" name="identitas-rt" required placeholder="Masukkan RT" value="{{ old('identitas-rt') }}">
+                                            @if ($errors->data_anggota->first('identitas-rt'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('identitas-rt') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="identitas-rw">RW</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('identitas-rw')) is-invalid @endif" id="identitas-rw" name="identitas-rw" required placeholder="Masukkan RW" value="{{ old('identitas-rw') }}">
+                                            @if ($errors->data_anggota->first('identitas-rw'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('identitas-rw') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="identitas-kode-pos">Kode Pos</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('identitas-kode-pos')) is-invalid @endif" id="identitas-kode-pos" name="identitas-kode-pos" required placeholder="Masukkan Kode Pos" value="{{ old('identitas-kode-pos') }}">
+                                            @if ($errors->data_anggota->first('identitas-kode-pos'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('identitas-kode-pos') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gutters">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                        <div class="form-group">
+                                            <label for="identitas-status-kepemilikan">Status Kepemilikan</label>
+                                            <input type="text" class="form-control @if ($errors->data_anggota->first('identitas-status-kepemilikan')) is-invalid @endif" id="identitas-status-kepemilikan" name="identitas-status-kepemilikan" required placeholder="Masukkan Status Kepemilikan" value="{{ old('identitas-status-kepemilikan') }}">
+                                            @if ($errors->data_anggota->first('identitas-status-kepemilikan'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->data_anggota->first('identitas-status-kepemilikan') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
