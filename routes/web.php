@@ -32,6 +32,18 @@ Route::middleware('auth')->group(function ()
 		//Dashboard
 		Route::get('/user/home/dashboard', [User\Home\SubHome\DashboardController::class, 'viewPage'])->name('user.home.dashboard');
 
+		//TSR
+		Route::get('/user/home/tsr', [User\Home\SubHome\TSRController::class, 'viewPage'])->name('user.home.tsr');
+
+		//KSR
+		Route::get('/user/home/ksr/perguruan-tinggi', [User\Home\SubHome\KSR\PerguruanTinggiController::class, 'viewPage'])->name('user.home.ksr.perguruan-tinggi');
+		Route::get('/user/home/ksr/pmi-kota-lhokseumawe', [User\Home\SubHome\KSR\PMIKotaLhokseumaweController::class, 'viewPage'])->name('user.home.ksr.pmi-kota-lhokseumawe');
+
+		//PMR
+		Route::get('/user/home/pmr/madya', [User\Home\SubHome\PMR\MadyaController::class, 'viewPage'])->name('user.home.pmr.madya');
+		Route::get('/user/home/pmr/mula', [User\Home\SubHome\PMR\MulaController::class, 'viewPage'])->name('user.home.pmr.mula');
+		Route::get('/user/home/pmr/wira', [User\Home\SubHome\PMR\WiraController::class, 'viewPage'])->name('user.home.pmr.wira');
+
 		//Profile
 		Route::get('/user/home/profile', [User\Home\SubHome\ProfileController::class, 'viewPage'])->name('user.home.profile');
 		Route::post('/user/home/profile/data-anggota/update', [User\Home\SubHome\ProfileController::class, 'updateDataAnggota'])->name('user.home.profile.data-anggota.update');

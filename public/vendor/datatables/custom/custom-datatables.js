@@ -1,28 +1,28 @@
 // Basic DataTable
 $(function(){
 	$('#tabel-anggota').DataTable({
-		'iDisplayLength': 4,
+		
 		"language": {
 			"lengthMenu": "Display _MENU_ Records Per Page",
 			"info": "Showing Page _PAGE_ of _PAGES_",
 		}
 	});
 	$('#tabel-instansi').DataTable({
-		'iDisplayLength': 4,
+		
 		"language": {
 			"lengthMenu": "Display _MENU_ Records Per Page",
 			"info": "Showing Page _PAGE_ of _PAGES_",
 		}
 	});
 	$('#tabel-moderator').DataTable({
-		'iDisplayLength': 4,
+		
 		"language": {
 			"lengthMenu": "Display _MENU_ Records Per Page",
 			"info": "Showing Page _PAGE_ of _PAGES_",
 		}
 	});
 	$('#tabel-admin').DataTable({
-		'iDisplayLength': 4,
+		
 		"language": {
 			"lengthMenu": "Display _MENU_ Records Per Page",
 			"info": "Showing Page _PAGE_ of _PAGES_",

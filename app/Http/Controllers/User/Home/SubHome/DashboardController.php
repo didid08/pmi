@@ -12,6 +12,9 @@ class DashboardController extends HomeController
 
     public function viewPage ()
     {
-        return $this->view('dashboard');
+        $kasusCovidProvId = json_decode(file_get_contents('http://localhost/api-corona/provinsi-all.php'), true);
+        return $this->view('dashboard', [
+            'kasusCovidProvId' => $kasusCovidProvId
+        ]);
     }
 }

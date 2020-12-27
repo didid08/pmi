@@ -1,0 +1,1 @@
+$('#peta-covid-aceh').vectorMap({map: 'indonesia-adm2-1_merc'});

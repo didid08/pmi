@@ -4,7 +4,7 @@ $(document).ready(function(){
   function countdown () {
   var now = moment(), // get the current moment
     // May 28, 2013 @ 12:00AM
-    then = moment([2020, 10, 15]),
+    then = moment([2021, 01, 15]),
     // get the difference from now to then in ms
     ms = then.diff(now, 'milliseconds', true);
     // If you need years, uncomment this line and make sure you add it to the concatonated phrase

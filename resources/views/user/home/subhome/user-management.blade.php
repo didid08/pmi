@@ -58,9 +58,9 @@
                     <li class="nav-item">
                         <a class="nav-link" id="instansi-tab" data-toggle="pill" href="#instansi-tabel" role="tab" aria-controls="instansi-tabel" aria-selected="false">Sekolah/Instansi</a>
                     </li>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link" id="moderator-tab" data-toggle="pill" href="#moderator-tabel" role="tab" aria-controls="moderator-tabel" aria-selected="false">Moderator</a>
-                    </li>
+                    </li>-->
                     <li class="nav-item">
                         <a class="nav-link" id="admin-tab" data-toggle="pill" href="#admin-tabel" role="tab" aria-controls="admin-tabel" aria-selected="false">Admin</a>
                     </li>
@@ -146,7 +146,7 @@
                         </div>
                     </div>
                     <!-- Moderator -->
-                    <div class="tab-pane fade" id="moderator-tabel" role="tabpanel" aria-labelledby="moderator-tab">
+                    <!--<div class="tab-pane fade" id="moderator-tabel" role="tabpanel" aria-labelledby="moderator-tab">
                         <button class="btn btn-outline-primary mb-4"><i class="fa fa-plus mr-2"></i>Tambah Moderator</button>
                         <div class="table-responsive">
                             <table class="table custom-table" id="tabel-moderator">
@@ -174,7 +174,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div>-->
                     <!-- Admin -->
                     <div class="tab-pane fade" id="admin-tabel" role="tabpanel" aria-labelledby="admin-tab">
                         <button class="btn btn-outline-primary mb-4"><i class="fa fa-plus mr-2"></i>Tambah Admin</button>

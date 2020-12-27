@@ -8,10 +8,10 @@
 		<!-- Meta -->
 		<meta name="description" content="Situs Resmi PMI Lhokseumawe">
 		<meta name="author" content="Technosaber">
-		<link rel="shortcut icon" href="{{ asset('img/fav.png') }}" />
+		<link rel="shortcut icon" href="{{ asset('img/fav.ico') }}" />
 
 		<!-- Title -->
-		<title>{{ $title }} - User Area | Home | {{ $subTitle }}</title>
+		<title>{{ $title }} | User Area - Home - {{ $subTitle }}</title>
 
 
 		<!-- *************
@@ -53,7 +53,10 @@
 				<div class="sidebar-brand">
 					<a href="{{ route('user.home.dashboard') }}" class="logo">
 						<img src="{{ asset('img/pmi.png') }}" alt="PMI Lhokseumawe" />
-						<span class="text-white ml-2" style="font-size: 1.2em; font-weight: bold;">{{ $title }}</span>
+						<div class="ml-2" style="display: inline-block">
+							<span class="text-white" style="font-family: 'nowBold';font-size: 1.5em;">PMI</span><br>
+							<span class="text-white" style="font-family: 'nowRegular'; font-size: 1.1em;">Lhokseumawe</span>
+						</div>
 					</a>
 				</div>
 				<!-- Sidebar brand end  -->
@@ -78,7 +81,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="/">
+								<a href="{{ route('user.home.tsr') }}">
 									<i class="fa fa-flag"></i>
 									<span class="menu-text">TSR</span>
 								</a>
@@ -91,10 +94,10 @@
 								<div class="sidebar-submenu">
 									<ul>
 										<li>
-											<a href="/">PMI Kota Lhokseumawe</a>
+											<a href="{{ route('user.home.ksr.pmi-kota-lhokseumawe') }}">PMI Kota Lhokseumawe</a>
 										</li>
 										<li>
-											<a href="/">Perguruan Tinggi</a>
+											<a href="{{ route('user.home.ksr.perguruan-tinggi') }}">Perguruan Tinggi</a>
 										</li>
 									</ul>
 								</div>
@@ -107,13 +110,13 @@
 								<div class="sidebar-submenu">
 									<ul>
 										<li>
-											<a href="/">Mula</a>
+											<a href="{{ route('user.home.pmr.mula') }}">Mula</a>
 										</li>
 										<li>
-											<a href="/">Madya</a>
+											<a href="{{ route('user.home.pmr.madya') }}">Madya</a>
 										</li>
 										<li>
-											<a href="/">Wira</a>
+											<a href="{{ route('user.home.pmr.wira') }}">Wira</a>
 										</li>
 									</ul>
 								</div>
@@ -133,14 +136,14 @@
 									</a>
 								</li>
 							@endif
-							@if (!in_array(Auth::user()->role, [1,2]))
+							<!--@if (!in_array(Auth::user()->role, [1,2]))
 								<li class="{{ $activeMenu == 'manajemen-data' ? 'active' : '' }}">
 									<a href="">
 										<i class="fa fa-chart-pie"></i>
 										<span class="menu-text">Manajemen Data/Statistik</span>
 									</a>
 								</li>
-							@endif
+							@endif-->
 							@if (Auth::user()->role == 5)
 								<li class="{{ $activeMenu == 'pengaturan-website' ? 'active' : '' }}">
 									<a href="">
@@ -182,55 +185,6 @@
 
 						<!-- Header actions start -->
 						<ul class="header-actions">
-							<li class="dropdown">
-								<a href="#" id="notifications" data-toggle="dropdown" aria-haspopup="true">
-									<i class="icon-bell"></i>
-									<span class="count-label">8</span>
-								</a>
-								<div class="dropdown-menu dropdown-menu-right lrg" aria-labelledby="notifications">
-									<div class="dropdown-menu-header">
-										Notifications (40)
-									</div>
-									<ul class="header-notifications">
-										<li>
-											<a href="#">
-												<div class="user-img away">
-													<img src="img/user.png" alt="User">
-												</div>
-												<div class="details">
-													<div class="user-title">Abbott</div>
-													<div class="noti-details">Membership has been ended.</div>
-													<div class="noti-date">Oct 20, 07:30 pm</div>
-												</div>
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<div class="user-img busy">
-													<img src="img/user.png" alt="User">
-												</div>
-												<div class="details">
-													<div class="user-title">Braxten</div>
-													<div class="noti-details">Approved new design.</div>
-													<div class="noti-date">Oct 10, 12:00 am</div>
-												</div>
-											</a>
-										</li>
-										<li>
-											<a href="#">
-												<div class="user-img online">
-													<img src="img/user.png" alt="User">
-												</div>
-												<div class="details">
-													<div class="user-title">Larkyn</div>
-													<div class="noti-details">Check out every table in detail.</div>
-													<div class="noti-date">Oct 15, 04:00 pm</div>
-												</div>
-											</a>
-										</li>
-									</ul>
-								</div>
-							</li>
 							<li class="dropdown">
 								<a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
 									<span class="user-name">{{ Auth::user()->userProfile->nama ?? explode('@', Auth::user()->email)[0] }}</span>
@@ -325,10 +279,6 @@
 
 		<!-- Apex Charts -->
 		<script src="{{ asset('vendor/apex/apexcharts.min.js') }}"></script>
-		<script src="{{ asset('vendor/apex/admin/visitors.js') }}"></script>
-		<script src="{{ asset('vendor/apex/admin/deals.js') }}"></script>
-		<script src="{{ asset('vendor/apex/admin/income.js') }}"></script>
-		<script src="{{ asset('vendor/apex/admin/customers.js') }}"></script>
 
 		<!-- Main JS -->
 		<script src="{{ asset('js/main.js') }}"></script>
