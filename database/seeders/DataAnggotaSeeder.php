@@ -14,8 +14,6 @@ class DataAnggotaSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('data_anggota')->insert([
-            'user_id' => 1
-        ]);
+        //
     }
 }

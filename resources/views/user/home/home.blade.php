@@ -121,36 +121,38 @@
 									</ul>
 								</div>
 							</li>
-							<li class="header-menu">Additional</li>
-							<li class="{{ $activeMenu == 'profile' ? 'active' : '' }}">
-								<a href="{{ route('user.home.profile') }}">
-									<i class="fa fa-user-circle"></i>
-									<span class="menu-text">Profil</span>
-								</a>
-							</li>
-							@if (!in_array(Auth::user()->role, [1,3]))
-								<li class="{{ $activeMenu == 'manajemen-user' ? 'active' : '' }}">
-									<a href="{{ route('user.home.user-management') }}">
-										<i class="fa fa-users-cog"></i>
-										<span class="menu-text">Manajemen User</span>
+							@if (Auth::user()->role != 0)
+								<li class="header-menu">Additional</li>
+								<li class="{{ $activeMenu == 'profile' ? 'active' : '' }}">
+									<a href="{{ route('user.home.profile') }}">
+										<i class="fa fa-user-circle"></i>
+										<span class="menu-text">Profil</span>
 									</a>
 								</li>
-							@endif
-							<!--@if (!in_array(Auth::user()->role, [1,2]))
-								<li class="{{ $activeMenu == 'manajemen-data' ? 'active' : '' }}">
-									<a href="">
-										<i class="fa fa-chart-pie"></i>
-										<span class="menu-text">Manajemen Data/Statistik</span>
-									</a>
-								</li>
-							@endif-->
-							@if (Auth::user()->role == 5)
-								<li class="{{ $activeMenu == 'pengaturan-website' ? 'active' : '' }}">
-									<a href="">
-										<i class="fa fa-cog"></i>
-										<span class="menu-text">Pengaturan Website</span>
-									</a>
-								</li>
+								@if (!in_array(Auth::user()->role, [0,1,2,3]))
+									<li class="{{ $activeMenu == 'manajemen-user' ? 'active' : '' }}">
+										<a href="{{ route('user.home.user-management') }}">
+											<i class="fa fa-users-cog"></i>
+											<span class="menu-text">Manajemen User</span>
+										</a>
+									</li>
+								@endif
+								<!--@if (!in_array(Auth::user()->role, [1,2]))
+									<li class="{{ $activeMenu == 'manajemen-data' ? 'active' : '' }}">
+										<a href="">
+											<i class="fa fa-chart-pie"></i>
+											<span class="menu-text">Manajemen Data/Statistik</span>
+										</a>
+									</li>
+								@endif-->
+								@if (Auth::user()->role == 5)
+									<li class="{{ $activeMenu == 'pengaturan-website' ? 'active' : '' }}">
+										<a href="">
+											<i class="fa fa-cog"></i>
+											<span class="menu-text">Pengaturan Website</span>
+										</a>
+									</li>
+								@endif
 							@endif
 						</ul>
 					</div>
@@ -187,10 +189,15 @@
 						<ul class="header-actions">
 							<li class="dropdown">
 								<a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
-									<span class="user-name">{{ Auth::user()->userProfile->nama ?? explode('@', Auth::user()->email)[0] }}</span>
+									@if (Auth::user()->role == 1)
+										<span class="user-name">{{ Auth::user()->dataAnggota->nama ?? Auth::user()->email }}</span>
+									@elseif (Auth::user()->role == 2)
+										<span class="user-name">{{ Auth::user()->dataInstansi->nama ?? Auth::user()->email }}</span>
+									@else
+										<span class="user-name">{{ Auth::user()->email }}</span>
+									@endif
 									<span class="avatar">
 										<img src="{{ asset('img/user.png') }}" alt="avatar">
-										<span class="status busy"></span>
 									</span>
 								</a>
 								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userSettings">
@@ -199,7 +206,13 @@
 											<div class="header-user">
 												<img src="{{ asset('img/user.png') }}" alt="">
 											</div>
-											<h5>{{ Auth::user()->userProfile->nama ?? explode('@', Auth::user()->email)[0] }}</h5>
+											@if (Auth::user()->role == 1)
+												<h5>{{ Auth::user()->dataAnggota->nama ?? Auth::user()->email }}</h5>
+											@elseif (Auth::user()->role == 2)
+												<h5>{{ Auth::user()->dataInstansi->nama ?? Auth::user()->email }}</h5>
+											@else
+												<h5>{{ Auth::user()->email }}</h5>
+											@endif
 											@php
 												$roleName = [
 													'Tamu',

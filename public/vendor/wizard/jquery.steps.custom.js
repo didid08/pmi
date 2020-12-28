@@ -1,25 +1,28 @@
-$("#tambah-anggota-form").steps({
+$("#tambah-anggota-wizard").steps({
+	headerTag: "h3",
+	bodyTag: "section",
+	transitionEffect: "slideLeft",
+	autoFocus: true,
+	onFinished: function (event, currentIndex) {
+		$("#tambah-anggota-form").submit();
+	}
+});
+
+$("#tambah-instansi-wizard").steps({
 	headerTag: "h3",
 	bodyTag: "section",
 	transitionEffect: "slideLeft",
 	autoFocus: true,
 });
 
-$("#tambah-instansi-form").steps({
+/*$("#tambah-moderator-wizard").steps({
 	headerTag: "h3",
 	bodyTag: "section",
 	transitionEffect: "slideLeft",
 	autoFocus: true,
-});
+});*/
 
-$("#tambah-moderator-form").steps({
-	headerTag: "h3",
-	bodyTag: "section",
-	transitionEffect: "slideLeft",
-	autoFocus: true,
-});
-
-$("#tambah-admin-form").steps({
+$("#tambah-admin-wizard").steps({
 	headerTag: "h3",
 	bodyTag: "section",
 	transitionEffect: "slideLeft",

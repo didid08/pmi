@@ -50,5 +50,6 @@ Route::middleware('auth')->group(function ()
 		Route::post('/user/home/profile/data-instansi/update', [User\Home\SubHome\ProfileController::class, 'updateDataInstansi'])->name('user.home.profile.data-instansi.update');
 
 		//User Management
-		Route::get('/user/home/user-management', [User\Home\SubHome\UserManagementController::class, 'viewPage'])->name('user.home.user-management');
+		Route::get('/user/home/manajemen-user', [User\Home\SubHome\UserManagementController::class, 'viewPage'])->name('user.home.user-management');
+		Route::post('/user/home/manajemen-user/anggota/tambah', [User\Home\SubHome\UserManagementController::class, 'tambahAnggota'])->name('user.home.user-management.anggota.add');
 });

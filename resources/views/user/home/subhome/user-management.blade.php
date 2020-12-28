@@ -36,14 +36,30 @@
     <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>-->
 
     <script>
-        var backToListUser = () => {
-            $("#tambah-user-header-title").html("");
-            $("#tambah-user-header").css("display", "none");
-            $(".tambah-user").css("display", "none");
+        $("#reset-tambah-anggota-input").click(function () {
+            $("#tambah-anggota-wizard input").not('#tambah-anggota-wizard input[type=hidden]').each(function () {
+                $(this).val("");
+            });
+        });
+        @if ($errors->tambah_anggota->all())
+            iziToast.error({
+                message: 'Terdapat kesalahan dalam menambah anggota'
+            });
+            $("#tambah-anggota").modal("show");
 
-            $("#list-user-menu").fadeIn();
-            $("#list-user").fadeIn();
-        };
+            $("#tambah-anggota-wizard input").each(function () {
+                $(this).on('input', function () {
+                    $(this).removeClass("is-invalid");
+                    $(this).nextAll('span').remove();
+                });
+            });
+            $("#tambah-anggota-wizard select").each(function () {
+                $(this).on('input', function () {
+                    $(this).removeClass("is-invalid");
+                    $(this).nextAll('span').remove();
+                });
+            });
+        @endif
     </script>
 @endsection
 
@@ -89,7 +105,6 @@
                                         <th>Jenis Kelamin</th>
                                         <th>Email</th>
                                         <th>Kode Anggota</th>
-                                        <th>Sekolah/Instansi</th>
                                         <th class="text-center">Opsi</th>
                                     </tr>
                                 </thead>
@@ -101,7 +116,6 @@
                                             <td>{{ $anggota->dataAnggota->kelamin ?? '-' }}</td>
                                             <td>{{ $anggota->email ?? '-' }}</td>
                                             <td>{{ $anggota->dataAnggota->kode_anggota ?? '-' }}</td>
-                                            <td>{{ $anggota->dataAnggota->instansi ?? '-' }}</td>
                                             <td class="text-center">
                                                 <button class="btn btn-primary" id="edit-anggota">Edit</button>
                                                 <button class="btn btn-white" id="hapus-anggota">Hapus</button>
