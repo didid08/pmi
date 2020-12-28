@@ -25,7 +25,7 @@ class UserManagementController extends HomeController
         ]);
     }
 
-    public function tambahAnggota(Request $request) 
+    public function tambahAnggota (Request $request) 
     {
         $validatorRules = [
             'kode-anggota' => 'required|numeric|unique:data_anggota,kode_anggota',
@@ -70,12 +70,7 @@ class UserManagementController extends HomeController
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator, 'tambah_anggota')->withInput();
         }
-
-        $user = User::create([
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('email')),
-            'role' => '1'
-        ]);
+        /// End Validation
 
         $dataAnggota = [
             'kode_anggota' => $request->input('kode-anggota'),
@@ -95,8 +90,109 @@ class UserManagementController extends HomeController
             $dataAnggota['kode_anggota_lama'] = $request->input('kode-anggota-lama');
         }
 
+        $domisili = [
+            'provinsi',
+            'kabupaten-kota',
+            'kecamatan',
+            'desa-kelurahan',
+            'alamat',
+            'rt',
+            'rw',
+            'kode-pos',
+            'no-telp',
+            'status-kepemilikan',
+            'status-tinggal',
+            'catatan',
+            'status-aktif'
+        ];
+        $identitas = [
+            'provinsi',
+            'kabupaten-kota',
+            'kecamatan',
+            'desa-kelurahan',
+            'alamat',
+            'rt',
+            'rw',
+            'kode-pos',
+            'status-kepemilikan'
+        ];
+
+        foreach ($domisili as $x) {
+            if (!empty($request->input('domisili-'.$x))) {
+                $dataAnggota['domisili_'.str_replace('-', '_', $x)] = $request->input('domisili-'.$x);
+            }
+        }
+        foreach ($identitas as $y) {
+            if (!empty($request->input('identitas-'.$y))) {
+                $dataAnggota['identitas_'.str_replace('-', '_', $y)] = $request->input('identitas-'.$y);
+            }
+        }
+
+        $user = User::create([
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('email')),
+            'role' => '1'
+        ]);
         $user->dataAnggota()->create($dataAnggota);
 
         return redirect()->back()->with('success', 'Anggota berhasil ditambahkan');
+    }
+
+    public function tambahInstansi (Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama-instansi' => 'required',
+            'nomor-kelompok-pmr' => 'required|numeric',
+            'alamat-instansi' => 'required',
+            'penanggung-jawab-pmr' => 'required',
+            'pembina-pmr' => 'required',
+            'jumlah-calon-anggota-pmr' => 'required|numeric',
+            'jumlah-siswa' => 'required|numeric',
+            'kepala-instansi' => 'required',
+            'email' => 'required|email|unique:users,email'
+        ], [
+            'required' => ':attribute tidak boleh kosong',
+            'numeric' => ':attribute harus berbentuk angka',
+            'unique' => 'Terdapat user dengan :attribute yang sama',
+            'email.email' => 'Format email salah'
+        ], [
+            'nama-instansi' => 'Nama Instansi',
+            'nomor-kelompok-pmr' => 'Nomor Kelompok PMR',
+            'alamat-instansi' => 'Alamat Instansi',
+            'penanggung-jawab-pmr' => 'Penanggung Jawab PMR',
+            'pembina-pmr' => 'Pembina PMR',
+            'jumlah-calon-anggota-pmr' => 'Jumlah Calon Anggota PMR',
+            'jumlah-siswa' => 'Jumlah Siswa',
+            'kepala-instansi' => 'Kepala Instansi',
+            'email' => 'Email',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator, 'tambah_instansi')->withInput();
+        }
+
+        $user = User::create([
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('email')),
+            'role' => '2'
+        ]);
+        $user->dataInstansi()->create([
+            'nama_instansi' => $request->input('nama-instansi'),
+            'nomor_kelompok_pmr' => $request->input('nomor-kelompok-pmr'),
+            'alamat_instansi' => $request->input('alamat-instansi'),
+            'penanggung_jawab_pmr' => $request->input('penanggung-jawab-pmr'),
+            'pembina_pmr' => $request->input('pembina-pmr'),
+            'jumlah_calon_anggota_pmr' => $request->input('jumlah-calon-anggota-pmr'),
+            'jumlah_siswa' => $request->input('jumlah-siswa'),
+            'kepala_instansi' => $request->input('kepala-instansi'),
+        ]);
+
+        return redirect()->back()->with('success', 'Instansi berhasil ditambahkan');
+    }
+
+    public function hapusUser($userId, Request $request)
+    {
+        User::where('id', $userId)->delete();
+        return redirect()->back()->with('success', 'Berhasil menghapus user');
     }
 }

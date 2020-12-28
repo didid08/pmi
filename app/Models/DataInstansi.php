@@ -12,12 +12,14 @@ class DataInstansi extends Model
     protected $table = 'data_instansi';
     protected $fillable = [
         'user_id',
-        'nama_kelompok_pmr',
+        'nama_instansi',
+        'nomor_kelompok_pmr',
         'alamat_instansi',
         'penanggung_jawab_pmr',
         'pembina_pmr',
         'jumlah_calon_anggota_pmr',
-        'jumlah_siswa'
+        'jumlah_siswa',
+        'kepala_instansi'
     ];
 
     public function user()

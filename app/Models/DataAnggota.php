@@ -23,6 +23,30 @@ class DataAnggota extends Model
         'nik',
         'agama',
         'golongan_darah',
+
+        'domisili_provinsi',
+        'domisili_kabupaten_kota',
+        'domisili_kecamatan',
+        'domisili_desa_kelurahan',
+        'domisili_alamat',
+        'domisili_rt',
+        'domisili_rw',
+        'domisili_kode_pos',
+        'domisili_no_telp',
+        'domisili_status_kepemilikan',
+        'domisili_status_tinggal',
+        'domisili_catatan',
+        'domisili_status_aktif',
+
+        'identitas_provinsi',
+        'identitas_kabupaten_kota',
+        'identitas_kecamatan',
+        'identitas_desa_kelurahan',
+        'identitas_alamat',
+        'identitas_rt',
+        'identitas_rw',
+        'identitas_kode_pos',
+        'identitas_status_kepemilikan'
     ];
 
     public function user()

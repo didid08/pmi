@@ -41,6 +41,13 @@
                 $(this).val("");
             });
         });
+
+        $("#reset-tambah-instansi-input").click(function () {
+            $("#tambah-instansi-form input").not('#tambah-instansi-form input[type=hidden]').each(function () {
+                $(this).val("");
+            });
+        });
+
         @if ($errors->tambah_anggota->all())
             iziToast.error({
                 message: 'Terdapat kesalahan dalam menambah anggota'
@@ -54,6 +61,28 @@
                 });
             });
             $("#tambah-anggota-wizard select").each(function () {
+                $(this).on('input', function () {
+                    $(this).removeClass("is-invalid");
+                    $(this).nextAll('span').remove();
+                });
+            });
+        @endif
+
+        @if ($errors->tambah_instansi->all())
+            iziToast.error({
+                message: 'Terdapat kesalahan dalam menambah sekolah/instansi'
+            });
+            $("#anggota-tab").removeClass('active');
+            $("#anggota-tab").attr('aria-selected', 'false');
+            $("#instansi-tab").addClass('active');
+            $("#instansi-tab").attr('aria-selected', 'true');
+
+            $("#anggota-tabel").removeClass('show active');
+            $("#instansi-tabel").addClass('show active');
+
+            $("#tambah-instansi").modal("show");
+
+            $("#tambah-instansi-form input").each(function () {
                 $(this).on('input', function () {
                     $(this).removeClass("is-invalid");
                     $(this).nextAll('span').remove();
@@ -77,9 +106,11 @@
                     <!--<li class="nav-item">
                         <a class="nav-link" id="moderator-tab" data-toggle="pill" href="#moderator-tabel" role="tab" aria-controls="moderator-tabel" aria-selected="false">Moderator</a>
                     </li>-->
-                    <li class="nav-item">
-                        <a class="nav-link" id="admin-tab" data-toggle="pill" href="#admin-tabel" role="tab" aria-controls="admin-tabel" aria-selected="false">Admin</a>
-                    </li>
+                    @if (Auth::user()->role == 5)
+                        <li class="nav-item">
+                            <a class="nav-link" id="admin-tab" data-toggle="pill" href="#admin-tabel" role="tab" aria-controls="admin-tabel" aria-selected="false">Admin</a>
+                        </li>
+                    @endif
                 </ul>
 
                 <!-- Tambah User Header -->
@@ -118,7 +149,11 @@
                                             <td>{{ $anggota->dataAnggota->kode_anggota ?? '-' }}</td>
                                             <td class="text-center">
                                                 <button class="btn btn-primary" id="edit-anggota">Edit</button>
-                                                <button class="btn btn-white" id="hapus-anggota">Hapus</button>
+                                                <form action="{{ route('user.home.user-management.hapus', ['userId' => $anggota->id ]) }}" method="POST" style="display: inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-white" id="hapus-anggota">Hapus</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -128,7 +163,8 @@
                     </div>
                     <!-- Instansi -->
                     <div class="tab-pane fade" id="instansi-tabel" role="tabpanel" aria-labelledby="instansi-tab">
-                        <button class="btn btn-outline-primary mb-4"><i class="fa fa-plus mr-2"></i>Tambah Sekolah/Instansi</button>
+                        <button class="btn btn-outline-primary mb-4" data-toggle="modal" data-target="#tambah-instansi"><i class="fa fa-plus mr-2"></i>Tambah Sekolah/Instansi</button>
+                        @include('user.home.subhome.user-management.instansi.tambah-instansi')
                         <div class="table-responsive">
                             <table class="table custom-table" id="tabel-instansi">
                                 <thead>
@@ -137,7 +173,6 @@
                                         <th>Nama Sekolah/Instansi</th>
                                         <th>Email</th>
                                         <th>Alamat</th>
-                                        <th>Nomor Anggota PMR</th>
                                         <th class="text-center">Opsi</th>
                                     </tr>
                                 </thead>
@@ -145,13 +180,16 @@
                                     @foreach ($semuaInstansi as $index => $instansi)
                                         <tr>
                                             <td class="text-center">{{ $index+1 }}.</td>
-                                            <td>{{ $instansi->dataInstansi->nama ?? '-' }}</td>
+                                            <td>{{ $instansi->dataInstansi->nama_instansi ?? '-' }}</td>
                                             <td>{{ $instansi->email ?? '-' }}</td>
                                             <td>{{ $instansi->dataInstansi->alamat_instansi ?? '-' }}</td>
-                                            <td>{{ $instansi->dataInstansi->nomor_anggota_pmr ?? '-' }}</td>
                                             <td class="text-center">
                                                 <button class="btn btn-primary" id="edit-instansi">Edit</button>
-                                                <button class="btn btn-white" id="hapus-instansi">Hapus</button>
+                                                <form action="{{ route('user.home.user-management.hapus', ['userId' => $instansi->id ]) }}" method="POST" style="display: inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-white" id="hapus-instansi">Hapus</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -190,35 +228,37 @@
                         </div>
                     </div>-->
                     <!-- Admin -->
-                    <div class="tab-pane fade" id="admin-tabel" role="tabpanel" aria-labelledby="admin-tab">
-                        <button class="btn btn-outline-primary mb-4"><i class="fa fa-plus mr-2"></i>Tambah Admin</button>
-                        <div class="table-responsive">
-                            <table class="table custom-table" id="tabel-admin">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No.</th>
-                                        <th>Email</th>
-                                        <th>Nickname</th>
-                                        <th class="text-center">Opsi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($semuaAdmin as $index => $admin)
+                    @if (Auth::user()->role == 5)
+                        <div class="tab-pane fade" id="admin-tabel" role="tabpanel" aria-labelledby="admin-tab">
+                            <button class="btn btn-outline-primary mb-4"><i class="fa fa-plus mr-2"></i>Tambah Admin</button>
+                            <div class="table-responsive">
+                                <table class="table custom-table" id="tabel-admin">
+                                    <thead>
                                         <tr>
-                                            <td class="text-center">{{ $index+1 }}.</td>
-                                            <td>{{ $admin->email ?? '-' }}</td>
-                                            <td>{{ $admin->nickname ?? '-' }}</td>
-                                            <td class="text-center">
-                                                <button class="btn btn-primary" id="edit-admin">Edit</button>
-                                                <button class="btn btn-secondary" id="ubah-role-admin">Ubah Role</button>
-                                                <button class="btn btn-white" id="hapus-admin">Hapus</button>
-                                            </td>
+                                            <th class="text-center">No.</th>
+                                            <th>Email</th>
+                                            <th>Nickname</th>
+                                            <th class="text-center">Opsi</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($semuaAdmin as $index => $admin)
+                                            <tr>
+                                                <td class="text-center">{{ $index+1 }}.</td>
+                                                <td>{{ $admin->email ?? '-' }}</td>
+                                                <td>{{ $admin->nickname ?? '-' }}</td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-primary" id="edit-admin">Edit</button>
+                                                    <button class="btn btn-secondary" id="ubah-role-admin">Ubah Role</button>
+                                                    <button class="btn btn-white" id="hapus-admin">Hapus</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

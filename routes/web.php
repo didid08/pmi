@@ -52,4 +52,8 @@ Route::middleware('auth')->group(function ()
 		//User Management
 		Route::get('/user/home/manajemen-user', [User\Home\SubHome\UserManagementController::class, 'viewPage'])->name('user.home.user-management');
 		Route::post('/user/home/manajemen-user/anggota/tambah', [User\Home\SubHome\UserManagementController::class, 'tambahAnggota'])->name('user.home.user-management.anggota.add');
+
+		Route::post('/user/home/manajemen-user/instansi/tambah', [User\Home\SubHome\UserManagementController::class, 'tambahInstansi'])->name('user.home.user-management.instansi.add');
+
+		Route::delete('/user/home/manajemen-user/{userId}/hapus', [User\Home\SubHome\UserManagementController::class, 'hapusUser'])->name('user.home.user-management.hapus');
 });

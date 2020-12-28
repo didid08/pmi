@@ -221,7 +221,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="kode-anggota-lama">Kode Anggota Lama</label>
-                                        <input type="text" class="form-control @if ($errors->data_anggota->first('kode-anggota-lama')) is-invalid @endif" id="kode-anggota-lama" name="kode-anggota-lama" value="{{ Auth::user()->dataAnggota->kode_anggota_lama ?? '' }}" required placeholder="-" readonly>
+                                        <input type="text" class="form-control @if ($errors->data_anggota->first('kode-anggota-lama')) is-invalid @endif" id="kode-anggota-lama" name="kode-anggota-lama" value="{{ Auth::user()->dataAnggota->kode_anggota_lama ?? '' }}" placeholder="-" readonly>
                                         @if ($errors->data_anggota->first('kode-anggota-lama'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->data_anggota->first('kode-anggota-lama') }}</strong>
@@ -379,7 +379,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="nomor-kelompok-pmr">Nomor Kelompok PMR</label>
-                                        <input type="text" class="form-control" id="nomor-kelompok-pmr" value="-" required placeholder="-" readonly>
+                                        <input type="text" class="form-control" id="nomor-kelompok-pmr" value="{{ Auth::user()->dataInstansi->nomor_kelompok_pmr ?? '-' }}" required placeholder="-" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="alamat-instansi">Alamat Sekolah/Instansi</label>
@@ -412,11 +412,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="jumlah-calon-anggota-pmr">Jumlah Calon Anggota PMR</label>
-                                        <input type="text" class="form-control" id="jumlah-calon-anggota-pmr" value="-" required placeholder="-" readonly>
+                                        <input type="text" class="form-control" id="jumlah-calon-anggota-pmr" value="{{ Auth::user()->dataInstansi->jumlah_calon_anggota_pmr ?? '-' }}" required placeholder="-" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="jumlah-siswa">Jumlah Siswa</label>
-                                        <input type="text" class="form-control" id="jumlah-siswa" value="-" required placeholder="-" readonly>
+                                        <input type="text" class="form-control" id="jumlah-siswa" value="{{ Auth::user()->dataInstansi->jumlah_siswa ?? '-' }}" required placeholder="-" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="kepala-instansi">Kepala Sekolah/Instansi</label>
@@ -506,55 +506,55 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="form-group">
                                     <label>Provinsi</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_provinsi ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Kabupaten/Kota</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_kabupaten_kota ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Kecamatan</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_kecamatan ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Desa/Kelurahan</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_desa_kelurahan ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_alamat ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>RT</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_rt ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>RW</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_rw ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Kode Pos</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_kode_pos ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>No. Telp</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_no_telp ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label>Domisili Status Kepemilikan</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <label>Status Kepemilikan</label>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_status_kepemilikan ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Status Tinggal</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_status_tinggal ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Catatan</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_catatan ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Status Aktif</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->domisili_status_aktif ?? '' }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -571,39 +571,39 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="form-group">
                                     <label>Provinsi</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->identitas_provinsi ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Kabupaten/Kota</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->identitas_kabupaten_kota ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Kecamatan</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->identitas_kecamatan ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Desa/Kelurahan</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->identitas_desa_kelurahan ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->identitas_alamat ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>RT</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->identitas_rt ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>RW</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->identitas_rw ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Kode Pos</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->identitas_kode_pos ?? '' }}" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label>Identitas Status Kepemilikan</label>
-                                    <input type="text" class="form-control" placeholder="-" readonly>
+                                    <label>Status Kepemilikan</label>
+                                    <input type="text" class="form-control" placeholder="-" value="{{ Auth::user()->dataAnggota->identitas_status_kepemilikan ?? '' }}" readonly>
                                 </div>
                             </div>
                         </div>

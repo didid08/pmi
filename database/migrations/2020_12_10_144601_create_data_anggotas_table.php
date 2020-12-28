@@ -15,7 +15,7 @@ class CreateDataAnggotasTable extends Migration
     {
         Schema::create('data_anggota', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('instansi')->nullable();
             $table->string('foto')->nullable();
             $table->string('kode_anggota')->nullable();
@@ -38,7 +38,7 @@ class CreateDataAnggotasTable extends Migration
             $table->string('domisili_rt')->nullable();
             $table->string('domisili_rw')->nullable();
             $table->string('domisili_kode_pos')->nullable();
-            $table->string('domisili_nomor_telepon')->nullable();
+            $table->string('domisili_no_telp')->nullable();
             $table->string('domisili_status_kepemilikan')->nullable();
             $table->string('domisili_status_tinggal')->nullable();
             $table->string('domisili_catatan')->nullable();

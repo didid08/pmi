@@ -15,9 +15,9 @@ class CreateDataInstansisTable extends Migration
     {
         Schema::create('data_instansi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nama_instansi');
-            $table->string('nama_kelompok_pmr');
+            $table->string('nomor_kelompok_pmr');
             $table->string('alamat_instansi');
             $table->string('penanggung_jawab_pmr');
             $table->string('pembina_pmr');
