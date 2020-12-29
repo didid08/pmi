@@ -89,6 +89,28 @@
                 });
             });
         @endif
+
+        @if ($errors->tambah_admin->all())
+            iziToast.error({
+                message: 'Terdapat kesalahan dalam menambah admin'
+            });
+            $("#anggota-tab").removeClass('active');
+            $("#anggota-tab").attr('aria-selected', 'false');
+            $("#admin-tab").addClass('active');
+            $("#admin-tab").attr('aria-selected', 'true');
+
+            $("#anggota-tabel").removeClass('show active');
+            $("#admin-tabel").addClass('show active');
+
+            $("#tambah-admin").modal("show");
+
+            $("#tambah-admin-form input").each(function () {
+                $(this).on('input', function () {
+                    $(this).removeClass("is-invalid");
+                    $(this).nextAll('span').remove();
+                });
+            });
+        @endif
     </script>
 @endsection
 
@@ -230,14 +252,14 @@
                     <!-- Admin -->
                     @if (Auth::user()->role == 5)
                         <div class="tab-pane fade" id="admin-tabel" role="tabpanel" aria-labelledby="admin-tab">
-                            <button class="btn btn-outline-primary mb-4"><i class="fa fa-plus mr-2"></i>Tambah Admin</button>
+                            <button class="btn btn-outline-primary mb-4" data-toggle="modal" data-target="#tambah-admin"><i class="fa fa-plus mr-2"></i>Tambah Admin</button>
+                            @include('user.home.subhome.user-management.admin.tambah-admin')
                             <div class="table-responsive">
                                 <table class="table custom-table" id="tabel-admin">
                                     <thead>
                                         <tr>
                                             <th class="text-center">No.</th>
                                             <th>Email</th>
-                                            <th>Nickname</th>
                                             <th class="text-center">Opsi</th>
                                         </tr>
                                     </thead>
@@ -246,11 +268,14 @@
                                             <tr>
                                                 <td class="text-center">{{ $index+1 }}.</td>
                                                 <td>{{ $admin->email ?? '-' }}</td>
-                                                <td>{{ $admin->nickname ?? '-' }}</td>
                                                 <td class="text-center">
                                                     <button class="btn btn-primary" id="edit-admin">Edit</button>
                                                     <button class="btn btn-secondary" id="ubah-role-admin">Ubah Role</button>
-                                                    <button class="btn btn-white" id="hapus-admin">Hapus</button>
+                                                    <form action="{{ route('user.home.user-management.hapus', ['userId' => $admin->id ]) }}" method="POST" style="display: inline">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-white" id="hapus-admin">Hapus</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach

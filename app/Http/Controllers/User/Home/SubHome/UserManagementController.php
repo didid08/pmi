@@ -190,6 +190,31 @@ class UserManagementController extends HomeController
         return redirect()->back()->with('success', 'Instansi berhasil ditambahkan');
     }
 
+    public function tambahAdmin (Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users,email'
+        ], [
+            'required' => ':attribute tidak boleh kosong',
+            'unique' => 'Terdapat user dengan :attribute yang sama',
+            'email.email' => 'Format email salah'
+        ], [
+            'email' => 'Email',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator, 'tambah_admin')->withInput();
+        }
+
+        User::create([
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('email')),
+            'role' => '4'
+        ]);
+
+        return redirect()->back()->with('success', 'Admin berhasil ditambahkan');
+    }
+
     public function hapusUser($userId, Request $request)
     {
         User::where('id', $userId)->delete();

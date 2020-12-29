@@ -55,5 +55,7 @@ Route::middleware('auth')->group(function ()
 
 		Route::post('/user/home/manajemen-user/instansi/tambah', [User\Home\SubHome\UserManagementController::class, 'tambahInstansi'])->name('user.home.user-management.instansi.add');
 
+		Route::post('/user/home/manajemen-user/admin/tambah', [User\Home\SubHome\UserManagementController::class, 'tambahAdmin'])->name('user.home.user-management.admin.add');
+
 		Route::delete('/user/home/manajemen-user/{userId}/hapus', [User\Home\SubHome\UserManagementController::class, 'hapusUser'])->name('user.home.user-management.hapus');
 });
