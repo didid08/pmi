@@ -10,7 +10,7 @@
 - Apache with Mod Rewrite enabled
 - PHP 7
 - Composer
-- PostgreSQL
+- MySQL
 
 #### Installation Guide (Quick Start)
 - Buka Terminal/Console, lalu jalankan:
